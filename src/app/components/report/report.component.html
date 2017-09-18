@@ -1,4 +1,4 @@
-<div id="root" class="container-fluid">
+<div id="root" class="container-fluid" *ngIf="this.data">
     <!--<div uib-alert ng-repeat="alert in alerts" *ngClass="'alert-' + alert.type" dismiss-on-timeout="2000" close="closeAlert($index)">{{alert.msg}}</div>-->
 
     <h1>{{this.data.testSuite}} Report</h1>
@@ -21,9 +21,9 @@
                     <div class="indicator failed" ng-if="!testPair.passed"><span class="dot red"></span>failed</div>
                     <div class="indicator passed" ng-if="testPair.passed"><span class="dot green"></span>passed</div>
                 </td>
-                <td>{{ testPair.meta.pair.label }}</td>
-                <td>{{ testPair.meta.pair.selector }}</td>
-                <td><span class="fileName">{{ testPair.meta.pair.fileName }}</span></td>
+                <td>{{ testPair.pair.label }}</td>
+                <td>{{ testPair.pair.selector }}</td>
+                <td><span class="fileName">{{ testPair.pair.fileName }}</span></td>
             </tr>
         </table>
     </div>
@@ -39,17 +39,17 @@
     </div>
     <!-- end filterGroup -->
 
-    <div class="results" ng-repeat="testPairs in testPairs | filter : displayOnStatusFilter">
+    <div class="results" *ngFor="let testPair of testPairs">
         <div class="flex-container">
-            <div class="selector">{{ testPairs.meta.pair.label }} - {{ testPairs.meta.pair.selector }}
-                <button type="button" class="btn btn-default btn-sm show-diff no-print" ng-click="openModal('lg', testPairs.a.src, testPairs.b.src)">Show diff</button>
+            <div class="selector">{{ testPair.pair.label }} - {{ testPair.pair.selector }}
+                <button type="button" class="btn btn-default btn-sm show-diff no-print" (click)="openModal('lg', testPairs.a.src, testPairs.b.src)">Show diff</button>
             </div>
-            <div class="filename">{{ testPairs.meta.pair.fileName }}</div>
+            <div class="filename">{{ testPair.pair.fileName }}</div>
         </div>
         <div class="flex-container small">
             <div class="asset-heading">REFERENCE</div>
             <div class="asset-heading">TEST</div>
-            <div ng-if="!testPairs.passed" class="asset-heading">DIFF</div>
+            <div ng-if="!testPair.passed" class="asset-heading">DIFF</div>
             <div ng-if="showPairStats" class="asset-heading">REPORT</div>
         </div>
         <div class="flex-container">
