@@ -10,6 +10,11 @@ import { AboutComponent } from './components/about/about.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ReportComponent } from './components/report/report.component';
 import { ReportService } from './services/report.service';
+import { ReportPipe } from './pipes/report/report.pipe';
+import { PassedTestsPipe } from './pipes/report/passed-tests.pipe';
+import { StatusFilterPipe } from './pipes/report/status-filter.pipe';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbdModalBasic } from './components/modal/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -18,12 +23,17 @@ import { ReportService } from './services/report.service';
     NavigationComponent,
     AboutComponent,
     SidebarComponent,
-    ReportComponent
+    ReportComponent,
+    ReportPipe,
+    PassedTestsPipe,
+    StatusFilterPipe,
+    NgbdModalBasic
   ],
   imports: [
     HttpModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule.forRoot()
   ],
   providers: [ReportService],
   bootstrap: [AppComponent]
