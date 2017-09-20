@@ -14,7 +14,8 @@ import { ReportPipe } from './pipes/report/report.pipe';
 import { PassedTestsPipe } from './pipes/report/passed-tests.pipe';
 import { StatusFilterPipe } from './pipes/report/status-filter.pipe';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { NgbdModalBasic } from './components/modal/modal/modal.component';
+import { NgbdModalComponent } from './components/modal/modal/modal.component';
+import { CompareComponent } from './components/modal/compare/compare/compare.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NgbdModalBasic } from './components/modal/modal/modal.component';
     ReportPipe,
     PassedTestsPipe,
     StatusFilterPipe,
-    NgbdModalBasic
+    NgbdModalComponent,
+    CompareComponent
   ],
   imports: [
     HttpModule,
@@ -35,7 +37,10 @@ import { NgbdModalBasic } from './components/modal/modal/modal.component';
     AppRoutingModule,
     NgbModule.forRoot()
   ],
-  providers: [ReportService],
+  entryComponents:[
+    CompareComponent
+  ],
+  providers: [ReportService,NgbdModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,25 +1,32 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbActiveModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+// import {CompareComponent} from '../compare/compare/compare.component';
 
 @Component({
-  selector: 'ngbd-modal-basic',
-  templateUrl: './modal.component.html'
+  selector: 'ngbd-modal-component',
+  templateUrl: './modal.component.html',
+  styleUrls: ['./modal.component.css']
 })
-export class NgbdModalBasic {
+export class NgbdModalComponent {
   closeResult: string;
-
   constructor(private modalService: NgbModal) {}
 
   open(content) {
-    this.modalService.open(content).result.then((result) => {
+    // let content={
+    //   'ref':ref,
+    //   'test':test
+    // };
+     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+    // const modalRef = this.modalService.open(CompareComponent);
+    // modalRef.componentInstance.ref = ref;
+    // modalRef.componentInstance.test = test;
   }
-
-  private getDismissReason(reason: any): string {
+   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {

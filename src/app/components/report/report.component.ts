@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../../services/report.service';
 import { environment } from '../../../environments/environment';
-
+import { NgbdModalComponent } from '../modal/modal/modal.component';
+import { Optional } from "@angular/core";
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -15,8 +16,9 @@ export class ReportComponent implements OnInit {
   showPairStats:Boolean=false;
   BASE64_PNG_STUB:String = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=';
   API_URL = environment.apiUrl;
-
-  constructor(private reportService: ReportService) { }
+  statVisibility:Boolean = false;
+  JSON = JSON;
+  constructor(private reportService: ReportService, private ngbdModalComponent:NgbdModalComponent) { }
 getReport(): void {
     this.reportService
         .getReport()
@@ -49,9 +51,17 @@ getReport(): void {
   getReportImageURL(path:string):string{
     return this.API_URL+path.slice(2).replace(/\\/g,'/');
   }
+  openModal(img1,img2):void{
+  this.ngbdModalComponent.open({'img1':img1,'img2':img2});
+}
+toogleStatVisibility():void{
+  this.statVisibility = !this.statVisibility;
 
+  console.log(arguments)
+}
   ngOnInit() {
         this.getReport();
+
   }
 
 

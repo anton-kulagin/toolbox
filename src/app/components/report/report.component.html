@@ -46,7 +46,7 @@
       </select>
     </label>
         <label for="showPairStats " class="control-label showPairStats ">show stats
-      <input id="showPairStats " type="checkbox " ng-model="showPairStats " class="showPairStats " />
+      <input id="showPairStats " type="checkbox"  class="showPairStats" (change)="toogleStatVisibility()" />
     </label>
     </div>
     <!-- end filterGroup -->
@@ -66,15 +66,15 @@
         </div>
         <div class="flex-container ">
             <div>
-                <img [src]="getReportImageURL(testPair.pair.reference)" alt="Reference " (click)="openModal( 'lg', testPair.pair.reference, testPair.pair.test)" onerror="this.src=BASE64_PNG_STUB" />
+                <img [src]="getReportImageURL(testPair.pair.reference)" alt="Reference " (click)="openModal(testPair.pair.reference, testPair.pair.test)" onerror="this.src=BASE64_PNG_STUB" />
             </div>
             <div>
-                <img [src]="getReportImageURL(testPair.pair.test)" alt="Test " (click)="openModal( 'lg', testPair.pair.reference, testPair.pair.test)" onerror="this.src=BASE64_PNG_STUB" />
+                <img [src]="getReportImageURL(testPair.pair.test)" alt="Test " (click)="openModal(testPair.pair.reference, testPair.pair.test)" onerror="this.src=BASE64_PNG_STUB" />
             </div>
             <div *ngIf="testPair.status!='pass'">
                 <img [src]="getReportImageURL(testPair.pair.diffImage) || 'missingImg.png' " image-name="c " alt="Difference " onerror="this.src=BASE64_PNG_STUB" />
             </div>
-            <div *ngIf="showPairStats ">
+            <div *ngIf="statVisibility ">
                 <div class="statusInds ">
                     <span class="dot" [ngClass]="{
                             'green':(testPair.status=='pass'),
@@ -84,8 +84,8 @@
                              {{testPair.status=='pass' ? 'passed' : 'failed'}}
                         </span>
                 </div>
-                <div class="reportTxt ">Report: {{ testPairs.report }}</div>
-                <div class="reportTxt ">Threshold: {{ testPairs.misMatchThreshold}}</div>
+                <div class="reportTxt ">Report: {{ JSON.stringify(testPair.pair.diff,null,2)}}</div>
+                <div class="reportTxt ">Threshold: {{ testPair.pair.misMatchThreshold}}</div>
             </div>
         </div>
     </div>
@@ -115,4 +115,4 @@
 
 </div>
 <!-- end #root -->
-<ngbd-modal-basic></ngbd-modal-basic>
+<ngbd-modal-component></ngbd-modal-component>
