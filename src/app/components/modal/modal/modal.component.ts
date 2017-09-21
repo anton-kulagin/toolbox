@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-
+import { LinkGeneratorService } from '../../../services/link-generator.service';
 import {NgbModal, NgbActiveModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 // import {CompareComponent} from '../compare/compare/compare.component';
 
