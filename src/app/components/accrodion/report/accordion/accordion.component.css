@@ -6,6 +6,15 @@
 }
 :host ::ng-deep .card-warning a {
     color: #fff;
+    background-color: transparent !important;
+    border: none;
+    text-decoration: none;
+}
+:host ::ng-deep .card-success a {
+    color: #fff;
+    background-color: transparent !important;
+    border: none;
+    text-decoration: none;
 }
 body {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;

@@ -4,7 +4,10 @@
     <h1>{{this.data.testSuite}} Report</h1>
 
     <h3 class="statContainer">
-        <span class="stat">Passed <span class='label label-success'>{{this.testPairs | passedTests}}</span>&nbsp;&nbsp; Failed <span class='label label-danger'>{{this.testPairs.length-(this.testPairs | passedTests)}}</span></span>
+        <span class="stat">Passed <span class='label label-success'>
+            {{this.testPairs | passedTests}}</span>&nbsp;&nbsp; Failed
+        <span class='label label-danger'>{{this.testPairs.length-(this.testPairs | passedTests)}}</span>
+        </span>
     </h3>
 
     <div class="no-print summaryControls">
@@ -39,86 +42,21 @@
     <!-- end summaryBlock -->
 
     <div class='no-print filterGroup form-group'>
-        <label for="statusFilter " class="control-label statusFilter ">status filter
-      <select id="statusFilter " class="form-control" #selectedFilter (change)="onChangeObj(selectedFilter.value)">
+        <label for="statusFilter" class="control-label statusFilter">status filter
+      <select id="statusFilter" class="form-control" #selectedFilter (change)="onChangeObj(selectedFilter.value)">
           <option value="all">all</option>
           <option value="pass">Pass</option>
           <option value="fail">Failed</option>
       </select>
     </label>
-        <label for="showPairStats " class="control-label showPairStats ">show stats
-      <input id="showPairStats " type="checkbox"  class="showPairStats" (change)="toogleStatVisibility()" />
+        <label for="showPairStats" class="control-label showPairStats">show stats
+      <input id="showPairStats" type="checkbox"  class="showPairStats" (change)="toogleStatVisibility()" />
     </label>
+        <div class="btn btn-info" (click)="backstopRun('test')">Start Test</div>
+        <div class="btn btn-info" (click)="backstopRun('reference')">Regenerate references</div>
+        <div class="btn btn-info" (click)="backstopRun('approve')">Approve all</div>
     </div>
-    <ngbd-accordion-basic [filter]="filter" [statVisibility]='statVisibility'></ngbd-accordion-basic>
-    <!-- end filterGroup -->
-    <!--<div class="results" *ngFor="let testPair of filteredTestPairs">
-        <div class="flex-container ">
-            <div class="selector">{{ testPair.pair.label }} - {{ testPair.pair.selector }}
-                <button type="button " class="btn btn-default btn-sm show-diff no-print " ng-click="openModal( 'lg', testPairs.a.src, testPairs.b.src) ">Show diff</button>
-            </div>
-            <div class="filename">{{ testPair.pair.fileName }}</div>
-        </div>
-        <div class="flex-container small ">
-            <div class="asset-heading ">REFERENCE</div>
-            <div class="asset-heading ">TEST</div>
-            <div *ngIf="testPair.status!='pass'" class="asset-heading ">DIFF</div>
-            <div *ngIf="showPairStats" class="asset-heading ">REPORT</div>
-        </div>
-        <div class="flex-container ">
-            <div>
-                <img [src]="getReportImageURL(testPair.pair.reference)" alt="Reference " (click)="openModal(testPair.pair.reference, testPair.pair.test)" onerror="this.src=BASE64_PNG_STUB" />
-            </div>
-            <div>
-                <img [src]="getReportImageURL(testPair.pair.test)" alt="Test " (click)="openModal(testPair.pair.reference, testPair.pair.test)" onerror="this.src=BASE64_PNG_STUB" />
-            </div>
-            <div *ngIf="testPair.status!='pass'">
-                <img [src]="getReportImageURL(testPair.pair.diffImage) || 'missingImg.png' " image-name="c " alt="Difference " onerror="this.src=BASE64_PNG_STUB" />
-            </div>
-            <div *ngIf="statVisibility ">
-                <div class="statusInds ">
-                    <span class="dot" [ngClass]="{
-                            'green':(testPair.status=='pass'),
-                            'red':(testPair.status!='pass')
-                            }"></span>
-                    <span>
-                             {{testPair.status=='pass' ? 'passed' : 'failed'}}
-                        </span>
-                </div>
-                <div class="reportTxt ">Report: {{ JSON.stringify(testPair.pair.diff,null,2)}}</div>
-                <div class="reportTxt ">Threshold: {{ testPair.pair.misMatchThreshold}}</div>
-            </div>
-        </div>
-    </div>-->
-
-
-
-
-
-    <!-- end results -->
-
-    <!--<div>
-        <script type="text/ng-template " id="myModalContent.html ">
-            <div class="modal-header ">
-                <h3 class="modal-title " id="modal-title ">Comparison result</h3>
-            </div>
-            <div class="modal-body " id="modal-body ">
-
-                <div class="btn-group " role="group ">
-                    <button type="button " class="btn btn-success " ng-click="setImgPositionValue(100) ">Reference</button>
-                    <button type="button " class="btn btn-warning " ng-click="setImgPositionValue(0) ">Test</button>
-                </div>
-
-                <revealer top-image="{{ selected.referenceImg }} " bottom-image="{{ selected.testImg }} " start-position="imgPositionValue ">
-                </revealer>
-
-            </div>
-            <div class="modal-footer ">
-                <button class="btn btn-primary " type="button " ng-click="ok() ">OK</button>
-            </div>
-        </script>
-    </div>-->
-
+    <ngbd-accordion-basic [filter]="filter" [statVisibility]='statVisibility' [filteredTestPairs]='filteredTestPairs'></ngbd-accordion-basic>
 </div>
 <!-- end #root -->
 <!--<ngbd-modal-component></ngbd-modal-component>-->

@@ -3,6 +3,7 @@ import { ReportService } from '../../services/report.service';
 import { environment } from '../../../environments/environment';
 import { NgbdModalComponent } from '../modal/modal/modal.component';
 import { LinkGeneratorService } from '../../services/link-generator.service';
+import { BackstopService } from '../../services/backstop.service';
 import { Optional } from "@angular/core";
 @Component({
   selector: 'app-report',
@@ -17,7 +18,7 @@ export class ReportComponent implements OnInit {
   testPairs:Array<Object>;
   filteredTestPairs:Array<Object>;
   filter:string ='all';
-  isSummaryListCollapsed:Boolean=true;
+  isSummaryListCollapsed:Boolean=false;
   showPairStats:Boolean=false;
   BASE64_PNG_STUB:String = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=';
   API_URL = environment.apiUrl;
@@ -25,7 +26,8 @@ export class ReportComponent implements OnInit {
   constructor(
     private reportService: ReportService,
      private ngbdModalComponent:NgbdModalComponent,
-     private linkGeneratorService:LinkGeneratorService
+     private linkGeneratorService:LinkGeneratorService,
+    private backstopService:BackstopService
      ) { }
   getReport(): void {
     this.reportService
@@ -45,10 +47,7 @@ export class ReportComponent implements OnInit {
     this.isSummaryListCollapsed = !this.isSummaryListCollapsed;
   }
   getTestPairsByFilter():void  {
-    // console.log(filter);
     this.filteredTestPairs = this.reportService.getTestPairs(this.filter);
-    // console.log("--->"+this.filteredTestPairs);
-    // console.log(this.testPairs);
   }
 
   onChangeObj(selectedFilter:string):void{
@@ -66,6 +65,14 @@ export class ReportComponent implements OnInit {
   
   toogleStatVisibility():void{
     this.statVisibility = !this.statVisibility;
+  }
+
+  backstopRun(command:string){
+      this.backstopService.run(command)
+      .then((data)=>{
+        debugger;
+        this.getReport();
+      });
   }
 
   ngOnInit() {

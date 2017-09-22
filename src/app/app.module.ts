@@ -10,6 +10,7 @@ import { AboutComponent } from './components/about/about.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ReportComponent } from './components/report/report.component';
 import { ReportService } from './services/report.service';
+import { BackstopService } from './services/backstop.service';
 import { LinkGeneratorService } from './services/link-generator.service';
 import { ReportPipe } from './pipes/report/report.pipe';
 import { PassedTestsPipe } from './pipes/report/passed-tests.pipe';
@@ -43,7 +44,7 @@ import { AccordionComponent } from './components/accrodion/report/accordion/acco
   entryComponents:[
     CompareComponent
   ],
-  providers: [ReportService,NgbdModalComponent,AccordionComponent,LinkGeneratorService],
+  providers: [ReportService,NgbdModalComponent,AccordionComponent,LinkGeneratorService,BackstopService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

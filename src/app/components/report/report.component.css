@@ -61,6 +61,9 @@ th {
     font-family: monospace;
     font-size: 11px;
 }
+.summaryControls {
+    margin-bottom: 20px;
+}
 .summaryList {
     padding: 0;
     list-style: none;
@@ -96,6 +99,10 @@ th {
 .filterGroup select {
     display: inline-block;
     width: auto;
+}
+.filterGroup .btn-info {
+    float: right;
+    margin-left: 20px;
 }
 .results {
     margin-bottom: 90px;
@@ -152,6 +159,9 @@ th {
 }
 .show-diff {
     display: none;
+}
+.btn {
+    cursor: pointer;
 }
 @media print {
     .no-print, .no-print * {
