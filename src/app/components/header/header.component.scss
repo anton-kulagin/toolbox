@@ -1,0 +1,28 @@
+body, a, input {
+    color: #fff;
+    text-shadow: 0 0 3px rgba(255,255,255,0.4);
+}
+.navbar {
+    padding: 0;
+    // margin-bottom: 0;
+}
+.menu-toggle {
+    cursor: pointer;
+    color:#fff;
+    border-width: 0;
+    width: 45px;
+    height: 45px;
+    padding: 12px;
+    background-color: rgba(0,0,0,0.5);
+    background-image: url("../../../assets/icons/menu.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    &:focus {
+        border-width:0;
+    }
+    span {
+        color:#fff;
+        font-size:16px;
+    }
+}

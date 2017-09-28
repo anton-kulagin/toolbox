@@ -5,7 +5,7 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'ngbd-modal-content',
   templateUrl: './compare.component.html',
-  styleUrls: ['./compare.component.css']
+  styleUrls: ['./compare.component.scss']
 })
 export class CompareComponent {
 

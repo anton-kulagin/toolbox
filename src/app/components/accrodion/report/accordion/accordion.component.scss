@@ -1,14 +1,21 @@
+:host ::ng-deep .card {
+    border-width:0;
+    border-radius: 0;
+}
 :host ::ng-deep .card-warning {
     background-color: #d9534f;
+    border-radius: 0;
 }
 :host ::ng-deep .card-success {
-    background-color: #5cb85c;
+    background-color: rgba(92, 184, 92,0.8);
+    border-radius: 0;
 }
 :host ::ng-deep .card-warning a {
     color: #fff;
     background-color: transparent !important;
     border: none;
     text-decoration: none;
+    border-radius: 0;
 }
 :host ::ng-deep .card-success a {
     color: #fff;
@@ -93,6 +100,7 @@ th {
 }
 .summaryList .statusInds {
     width: 15ex;
+    color:#000;
 }
 .summaryBlock .fileName {
     font-style: italic;

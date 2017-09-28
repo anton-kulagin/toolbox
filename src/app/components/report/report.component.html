@@ -1,16 +1,16 @@
-<div id="root" class="container-fluid" *ngIf="this.data">
-    <!--<div uib-alert ng-repeat="alert in alerts" *ngClass="'alert-' + alert.type" dismiss-on-timeout="2000" close="closeAlert($index)">{{alert.msg}}</div>-->
+<div class="container" *ngIf="this.report">
+    <header class="reportHeader">
+        <h4>{{this.report.testSuite}} Report</h4>
+        <h6 class="statContainer">
+            <span class="stat">Passed <span class='label label-success'>
+                {{this.testPairs | passedTests}}</span>&nbsp;&nbsp; Failed
+            <span class='label label-danger'>{{this.testPairs.length-(this.testPairs | passedTests)}}</span>
+            </span>
+        </h6>
+    </header>
 
-    <h1>{{this.data.testSuite}} Report</h1>
 
-    <h3 class="statContainer">
-        <span class="stat">Passed <span class='label label-success'>
-            {{this.testPairs | passedTests}}</span>&nbsp;&nbsp; Failed
-        <span class='label label-danger'>{{this.testPairs.length-(this.testPairs | passedTests)}}</span>
-        </span>
-    </h3>
-
-    <div class="no-print summaryControls">
+    <div class="summaryControls">
         <button class="btn btn-default summaryListButton" type="button" class="btn btn-default">
       <span *ngIf="!isSummaryListCollapsed" (click)="toogleSummary()">Collapse Summary</span>
       <span *ngIf="isSummaryListCollapsed" (click)="toogleSummary()">Expand Summary</span>
@@ -18,45 +18,67 @@
         <!-- <button class="btn btn-default summaryListButton" type="button" class="btn btn-default" ng-click="copyFailedTestsIds()">Copy failed tests to clipboard</button> -->
     </div>
     <div class="summaryBlock">
-        <table class="summaryList" [hidden]="!isSummaryListCollapsed">
-            <tr *ngFor="let testPair of testPairs">
-                <td class="statusInds">
-                    <div class="indicator failed">
-                        <span class="dot" [ngClass]="{
-                            'green':(testPair.status=='pass'),
-                            'red':(testPair.status!='pass')
-                            }"></span>
-                        <span>
-                             {{testPair.status=='pass' ? 'passed' : 'failed'}}
-                        </span>
+        <table class="col-md-12 col-sm-12 col-lg-12 tile table-hover" [hidden]="isSummaryListCollapsed">
+            <thead>
+                <tr>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Test
+                    </th>
+                    <th>
+                        Selector
+                    </th>
+                    <th>
+                        Screen Name
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let testPair of testPairs">
+                    <td class="statusInds">
+                        <div class="indicator failed">
+                            <span class="dot" [ngClass]="{
+                                'green':(testPair.status=='pass'),
+                                'red':(testPair.status!='pass')
+                                }"></span>
+                            <span>
+                                 {{testPair.status=='pass' ? 'passed' : 'failed'}}
+                            </span>
 
 
-                    </div>
-                </td>
-                <td>{{ testPair.pair.label }}</td>
-                <td>{{ testPair.pair.selector }}</td>
-                <td><span class="fileName ">{{ testPair.pair.fileName }}</span></td>
-            </tr>
+                        </div>
+                    </td>
+                    <td>{{ testPair.pair.label }}</td>
+                    <td>{{ testPair.pair.selector }}</td>
+                    <td><span class="fileName ">{{ testPair.pair.fileName }}</span></td>
+                </tr>
+            </tbody>
+
         </table>
     </div>
     <!-- end summaryBlock -->
 
-    <div class='no-print filterGroup form-group'>
-        <label for="statusFilter" class="control-label statusFilter">status filter
-      <select id="statusFilter" class="form-control" #selectedFilter (change)="onChangeObj(selectedFilter.value)">
+    <div class='filterGroup form-group row'>
+        <label for="statusFilter" class="control-label statusFilter col-sm-6 col-md-6">Status filter
+      <select id="statusFilter" class="form-control" #selectedFilter (change)="onChangeFilter(selectedFilter.value)">
           <option value="all">all</option>
           <option value="pass">Pass</option>
           <option value="fail">Failed</option>
       </select>
     </label>
-        <label for="showPairStats" class="control-label showPairStats">show stats
-      <input id="showPairStats" type="checkbox"  class="showPairStats" (change)="toogleStatVisibility()" />
+        <label for="showPairStats" class="control-label showPairStats col-sm-6 col-md-6 text-right">Show stats
+        <input id="showPairStats" type="checkbox"  class="showPairStats" (change)="toogleStatVisibility()" />
     </label>
-        <div class="btn btn-info" (click)="backstopRun('test')">Start Test</div>
-        <div class="btn btn-info" (click)="backstopRun('reference')">Regenerate references</div>
-        <div class="btn btn-info" (click)="backstopRun('approve')">Approve all</div>
+        <div class="btn btn-info col-sm-12 col-md-3" (click)="backstopRun('test')">Start Test</div>
+        <div class="btn btn-info col-sm-12 col-md-3" (click)="backstopRun('reference')">Generate references</div>
+        <div class="btn btn-info col-sm-12 col-md-3" (click)="backstopRun('approve')">Approve all</div>
     </div>
     <ngbd-accordion-basic [filter]="filter" [statVisibility]='statVisibility' [filteredTestPairs]='filteredTestPairs'></ngbd-accordion-basic>
 </div>
 <!-- end #root -->
-<!--<ngbd-modal-component></ngbd-modal-component>-->
+<!-- <div *ngIf="this.loading">
+    Loading...
+</div> -->
+<!-- <ngbd-modal-component></ngbd-modal-component> -->

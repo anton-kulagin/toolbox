@@ -1,0 +1,259 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~font-awesome/css/font-awesome.css";
+
+html {
+    overflow-x: hidden;
+    // -ms-overflow-style: scrollbar;
+}
+
+html, body {
+    height: 100%;
+}
+body *{
+    color:#fff;
+}
+/* Header */
+#header {
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    min-height: 46px;
+    position: relative;
+    padding-right: 7px;
+}
+
+#header, #header > .media-body, #header #top-menu {
+    overflow: visible;
+} 
+/**/
+body {
+    font-family: 'open-sans-light', sans-serif;
+    font-size: 12px;
+}
+
+button {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,1) 100%);
+    border-width: 0 !important;
+    color: #fff;
+    //background: rgba(0,0,0,0.75);
+}
+
+/* Tables */
+table > thead > tr > th {
+    font-weight: normal;
+    background: rgba(0,0,0,0.35);
+    text-transform: uppercase;
+    border-color: rgba(255,255,255,0.05) !important;
+}
+
+table td, table th {
+    border-color: rgba(255,255,255,0.05) !important;
+}
+
+.table-condensed > thead > tr > th {
+    padding: 3px 5px 5px;
+}
+
+.table-bordered, .table-responsive {
+    border: 0;
+}
+
+
+
+.table-bordered > tbody > tr > td,
+.table-bordered > thead > tr > th {
+    border-bottom: 0;
+    border-left: 0;
+}
+
+.table-bordered > tbody > tr > td:last-child,
+.table-bordered > thead > tr > th:last-child {
+    border-right: 0;
+}
+
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th,
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+    background: rgba(0,0,0,0.2);
+}
+.table td, .table th {
+    border-color: rgba(255,255,255,0.05) !important;
+}
+
+
+ /* Common */
+ .tile , .tile-dark, .tile-title, .table th {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+.tile , .tile-dark, .tile-title, .table th {
+    background: rgba(0,0,0,0.35);
+}
+@media (min-width: 1024px) {
+    /* --------------------------------------------------------
+        Template Blur Skins for Desktop
+    -----------------------------------------------------------*/
+    [id^="skin-blur-"] {
+        background-size: 100% 100%;
+        background-attachment: fixed;
+    }
+
+    #skin-blur-violate {
+        background-image: url(assets/images/skin-violate.jpg);
+    }
+
+    #skin-blur-lights {
+        background-image: url(assets/images/skin-lights.jpg);
+    }
+
+    #skin-blur-city {
+        background-image: url(assets/images/skin-city.jpg);
+    }
+
+    #skin-blur-greenish {
+        background-image: url(assets/images/skin-greenish.jpg);
+    }
+
+    #skin-blur-night {
+        background-image: url(assets/images/skin-night.jpg);
+    }
+    
+    #skin-blur-sunny {
+        background-image: url(assets/images/skin-sunny.jpg);
+    }
+    
+    #skin-blur-blue {
+        background-image: url(assets/images/skin-blue.jpg);
+    }
+    
+    #skin-blur-chrome {
+        background-image: url(assets/images/skin-chrome.jpg);
+    }
+    
+    #skin-blur-ocean {
+        background-image: url(assets/images/skin-ocean.jpg);
+    }
+    
+    #skin-blur-sunset {
+        background-image: url(assets/images/skin-sunset.jpg);
+    }
+    
+    #skin-blur-yellow {
+        background-image: url(assets/images/skin-yellow.jpg);
+    }
+
+    #skin-blur-kiwi {
+        background-image: url(assets/images/skin-kiwi.jpg);
+    }
+    
+    #skin-blur-nexus {
+        background-image: url(assets/images/skin-nexus.jpg);
+    }
+    
+    /* Sidebar */
+    .side-menu > li > a:hover, .side-menu > li.active > a, .side-menu > li > a.active:hover, .side-menu > li.hovered > a {
+        background-color: rgba(0,0,0,0.95);
+        color: #fff;
+        opacity: 1;
+    }
+
+    
+    .profile-menu > li i {
+        position: absolute;
+        top: 8px;
+        color: #fff;
+    }
+    
+    .profile-menu > li i.right {
+        right: -30px;
+    }
+       
+    .profile-menu > li i.left {
+        left: -30px;
+    }
+    
+    .profile-menu > li:hover i.right {
+        right: 15px;
+    }
+    
+    .profile-menu > li:hover i.left {
+        left: 15px;
+    }
+
+   
+}
+
+@media (max-width: 1024px) {
+    /* --------------------------------------------------------
+        Template Skins for Mobile
+    -----------------------------------------------------------*/
+    #skin-blur-violate {
+        background: #581528;
+    }
+
+    #skin-blur-lights {
+        background: #152d33;
+    }
+
+    #skin-blur-city {
+        background: #321e39;
+    }
+
+    #skin-blur-greenish {
+        background: #233335;
+    }
+
+    #skin-blur-night {
+        background: #0F3D52;
+    }
+    
+    #skin-blur-sunny {
+        background: #44360B;
+    }
+    
+    #skin-blur-blue {
+        background: #2B6474;
+    }
+    
+    #skin-blur-chrome {
+        background: #40404E;
+    }
+    
+    #skin-blur-ocean {
+        background: #0064B3;
+    }
+    
+    #skin-blur-sunset {
+        background: #883527;
+    }
+    
+    #skin-blur-yellow {
+        background: #915D25;
+    }
+
+    #skin-blur-kiwi {
+        background: #0f4731;
+    }
+    
+    #skin-blur-nexus {
+        background: #8A033A;
+    }
+
+    /* Shortcut icons */
+    .shortcut {
+        height: 62px;
+        width: 65px;
+    }
+    
+    .shortcut img {
+        height: 25px;
+    }
+    
+    /* Sidebar */
+    .profile-menu > li i {
+        display: none;
+    }
+    
+    /* Chat */
+    .chat {
+        display: none;
+    }
+}

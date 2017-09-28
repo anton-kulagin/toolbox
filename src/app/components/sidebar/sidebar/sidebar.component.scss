@@ -1,0 +1,38 @@
+body{
+    position: relative;
+}
+.sideBar {
+    position: absolute;
+    color:#fff;
+    left:-100%;
+    top:0;
+    bottom:0;
+    width:45px;
+    background: rgba(0,0,0,0.3);
+    transition: 1s ease-in-out;
+    &.opened {
+        left:0; 
+    }
+    
+    .nav-item {
+        .nav-link {
+            color:#fff;
+            font-size:16px;
+            height: 45px;
+            width:45px;
+        }
+        .homeLink {
+            background: url("../../../../assets/icons/home.png") center center no-repeat;
+        }
+        .reportListLink {
+            background: url("../../../../assets/icons/widgets.png") center center no-repeat;
+        }
+        .reportLink {
+            background: url("../../../../assets/icons/pages.png") center center no-repeat;
+        }
+    }
+}
+// .sideBarNav {
+//     position: absolute;
+    
+// }

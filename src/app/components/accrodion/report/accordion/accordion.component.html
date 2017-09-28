@@ -1,4 +1,4 @@
-<ngb-accordion [closeOthers]="true">
+<ngb-accordion [closeOthers]="true" *ngIf="filteredTestPairs">
     <!--<div class="results" >-->
     <ngb-panel *ngFor="let testPair of filteredTestPairs; let i = index" id="static-{{i}}" title="{{ testPair.pair.label }}({{ testPair.pair.selector }}) - {{ testPair.pair.fileName }}" [type]="testPair.status=='pass' ? 'success' : 'warning'">
         <ng-template ngbPanelContent>
@@ -11,7 +11,7 @@
             </div>
             <div class="flex-container ">
                 <div>
-                    <img [src]="getReportImageURL(testPair.pair.reference)" alt="Reference " (click)="openModal(testPair.pair.reference, testPair.pair.test)" onerror="this.src=BASE64_PNG_STUB" />
+                   <img [src]="getReportImageURL(testPair.pair.reference)" alt="Reference " (click)="openModal(testPair.pair.reference, testPair.pair.test)" onerror="this.src=BASE64_PNG_STUB" />
                 </div>
                 <div>
                     <img [src]="getReportImageURL(testPair.pair.test)" alt="Test " (click)="openModal(testPair.pair.reference, testPair.pair.test)" onerror="this.src=BASE64_PNG_STUB" />
