@@ -1,5 +1,5 @@
 :host ::ng-deep .card {
-    border-width:0;
+    border-width: 0;
     border-radius: 0;
 }
 :host ::ng-deep .card-warning {
@@ -7,7 +7,7 @@
     border-radius: 0;
 }
 :host ::ng-deep .card-success {
-    background-color: rgba(92, 184, 92,0.8);
+    background-color: rgba(92, 184, 92, 0.8);
     border-radius: 0;
 }
 :host ::ng-deep .card-warning a {
@@ -22,6 +22,11 @@
     background-color: transparent !important;
     border: none;
     text-decoration: none;
+}
+:host ::ng-deep {
+    .reportTxt {
+        color: #000;
+    }
 }
 body {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -100,7 +105,7 @@ th {
 }
 .summaryList .statusInds {
     width: 15ex;
-    color:#000;
+    color: #000;
 }
 .summaryBlock .fileName {
     font-style: italic;

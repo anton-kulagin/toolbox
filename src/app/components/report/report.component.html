@@ -10,10 +10,10 @@
     </header>
 
 
-    <div class="summaryControls">
+    <div class="summaryControls" (click)="toogleSummary()">
         <button class="btn btn-default summaryListButton" type="button" class="btn btn-default">
-      <span *ngIf="!isSummaryListCollapsed" (click)="toogleSummary()">Collapse Summary</span>
-      <span *ngIf="isSummaryListCollapsed" (click)="toogleSummary()">Expand Summary</span>
+      <span *ngIf="!isSummaryListCollapsed">Collapse Summary</span>
+      <span *ngIf="isSummaryListCollapsed">Expand Summary</span>
     </button>
         <!-- <button class="btn btn-default summaryListButton" type="button" class="btn btn-default" ng-click="copyFailedTestsIds()">Copy failed tests to clipboard</button> -->
     </div>
