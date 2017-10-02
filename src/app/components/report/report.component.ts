@@ -27,7 +27,6 @@ export class ReportComponent implements OnInit {
   isSummaryListCollapsed: Boolean = true;
   showPairStats: Boolean = false;
   loading: Boolean = false;
-  BASE64_PNG_STUB: String = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=';
   API_URL = environment.apiUrl;
   statVisibility: Boolean = false;
   constructor(
