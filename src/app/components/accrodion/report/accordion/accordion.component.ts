@@ -27,6 +27,7 @@ export class AccordionComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.reportService.report.subscribe((resp) => { this.report = resp; });
     //debugger;
     //console.log(this.filteredTestPairs)
     //this.filteredTestPairs = this.reportService.getTestPairs(this.filter);
@@ -105,7 +106,20 @@ export class AccordionComponent implements OnInit {
       })
 
   }
-
+  refreshTest(testPair) {
+    let filter = testPair.pair.label;
+    // debugger;
+    this.openModal();
+    this.backstopService.run('test', filter)
+      .then(() => {
+        debugger;
+        return this.reportService.getReport()
+          .subscribe(() => {
+            this.closeModal();
+            console.info('Refetching data after approving')
+          });
+      })
+  }
   ngOnChanges(changes: SimpleChanges) {
     if (changes.filter) {
       this.filter = changes.filter.currentValue

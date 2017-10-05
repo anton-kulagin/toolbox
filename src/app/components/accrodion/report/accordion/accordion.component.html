@@ -7,7 +7,9 @@
                 <div class="asset-heading">TEST</div>
                 <div *ngIf="testPair.status!='pass'" class="asset-heading ">DIFF</div>
                 <div *ngIf="showPairStats" class="asset-heading ">REPORT</div>
-                <div *ngIf="testPair.status=='fail'" class="btn-approve fa fa-check-circle" (click)="approveTestPair(testPair)"></div>
+                <div *ngIf="testPair.status=='fail'" class="btn-restart  fa fa-refresh" (click)="refreshTest(testPair)"></div>
+                <div *ngIf="testPair.status=='fail'" class="btn-approve  fa fa-check-circle" (click)="approveTestPair(testPair)"></div>
+
             </div>
             <div class="flex-container">
                 <div>

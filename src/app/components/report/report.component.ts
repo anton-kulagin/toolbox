@@ -38,7 +38,16 @@ export class ReportComponent implements OnInit {
 
   }
 
-
+ngAfterViewInit() {
+    // if (this.imgRight) {
+    //   let parent = this.imgWrapper.nativeElement,
+    //     child = this.imgRight.nativeElement;
+      // this.imgRightWidth = parent.outerWidth();
+      debugger;
+      //child
+      //console.log(this.imgRight.nativeElement);
+    // }
+  }
   getReport(preventClose: boolean = false): void {
     this.reportService
       .getReport()

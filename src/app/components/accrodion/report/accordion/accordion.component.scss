@@ -198,6 +198,15 @@ th {
     cursor: pointer;
 }
 .btn-approve:before {
-    font-size: 26px;
+    font-size: 18px;
     color: #5cb85c;
+}
+.btn-restart {
+    border-radius: 20px;
+    max-width: 40px;
+    cursor: pointer;
+    &:before {
+        font-size: 18px;
+        color: #5cb85c;
+    }
 }

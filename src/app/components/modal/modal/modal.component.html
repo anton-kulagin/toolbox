@@ -1,24 +1,29 @@
 <div class="modal-header" *ngIf="data.imgLeft">
-  <!-- <h4 class="modal-title">Hi there!</h4> -->
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <!-- <h4 class="modal-title">Hi there!</h4> -->
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
 </div>
 <div class="modal-body">
-  <div *ngIf="data.imgLeft">
+    <div *ngIf="data.imgLeft" class="imageWrapper" #imgWrapper>
+        <div class="comparer">
+            <div class="visible-part"> <img [src]="data.imgRight" [style.width.px]="imgRightWidth" #imgRight class="imgRight" /></div>
+        </div>
+        <img [src]="data.imgLeft" class="imgLeft" />
 
-    <img [src]="data.imgLeft" />
-    <img [src]="data.imgRight" />
-  </div>
-  <div *ngIf="!data.imgLeft" class="text-center">
-    <span class="sr-only">Loading...<br/>
-            
+    </div>
+    <div *ngIf="!data.imgLeft" class="text-center">
+        <span class="sr-only">Loading...<br/>
           Please wait.
         </span>
-    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
 
-  </div>
-</div>
-<!-- <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="close('Close click')">Close</button>
+    </div>
+
+    <!--<nouislider [connect]="true" [config]="someRange2config" [min]="0" [max]="10" [step]="0.01" [(ngModel)]="smeRange"></nouislider>-->
+    <!--<nouislider [connect]="true" [min]="0" [max]="15" [(ngModel)]="someValue"></nouislider>-->
+    <!--<div style="color:red ">{{someValue}}</div>-->
+    <md-slider min="1" max="5" step="0.5" value="1.5"></md-slider>
+    <!-- <div class="modal-footer ">
+    <button type="button " class="btn btn-outline-dark " (click)="close( 'Close click') ">Close</button>
   </div> -->

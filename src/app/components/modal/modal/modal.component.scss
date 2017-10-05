@@ -1,15 +1,41 @@
+@import "~nouislider/distribute/nouislider.min.css";
 :host ::ng-deep {
     .modal-content * {
-        color:#000;
+        color: #000;
     }
     .modal-header * {
-        color:#000;
+        color: #000;
     }
     .modal-body * {
-        color:#000;
+        color: #000;
     }
-    .modal-header *{
-        color:#000;
+    .modal-header * {
+        color: #000;
     }
 }
-
+.imageWrapper {
+    width: 100%;
+    position: relative;
+    // .imgLeft, .imgRight {
+    //     position: absolute;
+    //     left: 0;
+    //     top: 0;
+    //     right: 0;
+    // }
+    .imgLeft, .imgRight {
+        width: 100%;
+    }
+    .imgRight {
+        // transform: translateY(-100%);
+    }
+    .comparer {
+        position: absolute;
+        overflow: hidden;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+    .visible-part {
+        overflow: hidden;
+    }
+}

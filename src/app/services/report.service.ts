@@ -14,7 +14,6 @@ const API_URL = environment.apiUrl;
 export class ReportService {
   report:Observable<Report>;
   testPair:Observable<Array<TestPair>>;
- // reportEvent: EventEmitter<any> = new EventEmitter();
   private reportSubj:Subject<Report>;
   private testPairSubj:Subject<Array<TestPair>>;
   constructor(private http: Http) {
@@ -45,15 +44,15 @@ export class ReportService {
               });
    
   }
-  // getTestPairs(filter:string='all'):Array<TestPair>{
-  //   return this.testPair.filter((pair)=>{
-  //     let result=true;
-  //     if (filter!=='all'){
-  //       result = pair['status']==filter;
-  //     }
-  //     return result;
-  //   });
-  //  }
+  getTestPairs(value,filter:string='all'):Array<TestPair>{
+    return value.filter((pair)=>{
+      let result=true;
+      if (filter!=='all'){
+        result = pair['status']==filter;
+      }
+      return result;
+    });
+   }
 
 
 
