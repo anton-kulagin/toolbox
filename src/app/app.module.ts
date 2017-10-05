@@ -20,7 +20,9 @@ import { AccordionComponent } from './components/accrodion/report/accordion/acco
 import { AppHeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar/sidebar.component';
 import { ReportListComponent } from './components/report-list/report-list.component';
-import { NouisliderModule } from 'ng2-nouislider';
+import { MatSliderModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { NouisliderModule } from 'ng2-nouislider';
 // import { NouisliderModule } from 'ng2-nouislider/src/nouislider';
 
 @NgModule({
@@ -36,13 +38,14 @@ import { NouisliderModule } from 'ng2-nouislider';
     AccordionComponent,
     AppHeaderComponent,
     SidebarComponent,
-    ReportListComponent,
-    NouisliderModule
+    ReportListComponent
   ],
   imports: [
     HttpModule,
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
     NgbModule.forRoot()
   ],
   entryComponents: [

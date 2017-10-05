@@ -12,6 +12,12 @@
     .modal-header * {
         color: #000;
     }
+    .example-margin {
+        width:100%;
+    }
+    .md-slider-wrapper {
+        touch-action: none;
+    }
 }
 .imageWrapper {
     width: 100%;
