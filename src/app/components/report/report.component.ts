@@ -4,13 +4,11 @@ import { environment } from '../../../environments/environment';
 import { NgbdModalComponent } from '../modal/modal/modal.component';
 import { LinkGeneratorService } from '../../services/link-generator.service';
 import { BackstopService } from '../../services/backstop.service';
-import { Optional } from "@angular/core";
-
 import 'rxjs/add/operator/do';
-
 import { Observable } from 'rxjs/Rx';
 import { Report } from "../../interface/report/report";
 import { TestPair } from "../../interface/report/test-pair";
+
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -18,36 +16,22 @@ import { TestPair } from "../../interface/report/test-pair";
 })
 
 
-
 export class ReportComponent implements OnInit {
-  report: Report;
-  testPairs: Array<TestPair>;
-  filteredTestPairs: Array<TestPair>;
-  filter: string = 'all';
-  isSummaryListCollapsed: Boolean = true;
-  showPairStats: Boolean = false;
-  loading: Boolean = false;
-  API_URL = environment.apiUrl;
+  private report: Report;
+  private testPairs: Array<TestPair>;
+  private filteredTestPairs: Array<TestPair>;
+  private filter: string = 'all';
+  private isSummaryListCollapsed: Boolean = true;
+  private loading: Boolean = false;
+  private API_URL = environment.apiUrl;
   statVisibility: Boolean = false;
   constructor(
     private reportService: ReportService,
     private ngbdModalComponent: NgbdModalComponent,
     private linkGeneratorService: LinkGeneratorService,
     private backstopService: BackstopService
-  ) {
+  ) { }
 
-  }
-
-ngAfterViewInit() {
-    // if (this.imgRight) {
-    //   let parent = this.imgWrapper.nativeElement,
-    //     child = this.imgRight.nativeElement;
-      // this.imgRightWidth = parent.outerWidth();
-      debugger;
-      //child
-      //console.log(this.imgRight.nativeElement);
-    // }
-  }
   getReport(preventClose: boolean = false): void {
     this.reportService
       .getReport()
@@ -55,7 +39,6 @@ ngAfterViewInit() {
         this.openModal();
       })
       .subscribe((resp) => {
-        console.info('Report fetched')
         if (!preventClose) {
           this.closeModal();
         }
@@ -74,7 +57,6 @@ ngAfterViewInit() {
   }
 
   onChangeFilter(selectedFilter: string): void {
-    console.log(event);
     this.filter = selectedFilter;
     this.filteredTestPairs = this.getTestPairsByFilter()
   }
@@ -104,17 +86,14 @@ ngAfterViewInit() {
     this.openModal();
     servicePromise
       .then((data) => {
-        debugger;
         this.getReport(preventClose);
       })
     if (command == 'approve') {
       servicePromise.then(data => {
-        debugger;
         this.openModal();
         return this.backstopService.run('test')
       })
         .then(() => {
-          debugger;
           this.getReport();
         })
     }

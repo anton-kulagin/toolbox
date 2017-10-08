@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarService } from '../../../services/sidebar.service';
+import { SidebarService } from '../../services/sidebar.service';
 
 
 @Component({
@@ -9,15 +9,13 @@ import { SidebarService } from '../../../services/sidebar.service';
 })
 export class SidebarComponent implements OnInit {
   sideBarOpened: boolean = false;
-  constructor(private sidebarService: SidebarService) { }
+  constructor(private sidebarService: SidebarService) {
+
+  }
 
   ngOnInit() {
     this.sidebarService.sidebarState.subscribe((data) => {
       this.sideBarOpened = data;
     })
   }
-  // public toogleSideBar(): void {
-  //   debugger;
-  //   this.sideBarOpened = !this.sideBarOpened;
-  // }
 }

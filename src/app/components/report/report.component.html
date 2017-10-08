@@ -9,13 +9,11 @@
         </h6>
     </header>
 
-
     <div class="summaryControls" (click)="toogleSummary()">
         <button class="btn btn-default summaryListButton" type="button" class="btn btn-default">
-      <span *ngIf="!isSummaryListCollapsed">Collapse Summary</span>
-      <span *ngIf="isSummaryListCollapsed">Expand Summary</span>
-    </button>
-        <!-- <button class="btn btn-default summaryListButton" type="button" class="btn btn-default" ng-click="copyFailedTestsIds()">Copy failed tests to clipboard</button> -->
+            <span *ngIf="!isSummaryListCollapsed">Collapse Summary</span>
+            <span *ngIf="isSummaryListCollapsed">Expand Summary</span>
+        </button>
     </div>
     <div class="summaryBlock">
         <table class="col-md-12 col-sm-12 col-lg-12 tile table-hover" [hidden]="isSummaryListCollapsed">
@@ -77,8 +75,3 @@
     </div>
     <ngbd-accordion-basic [filter]="filter" [statVisibility]='statVisibility' [filteredTestPairs]='filteredTestPairs'></ngbd-accordion-basic>
 </div>
-<!-- end #root -->
-<!-- <div *ngIf="this.loading">
-    Loading...
-</div> -->
-<!-- <ngbd-modal-component></ngbd-modal-component> -->

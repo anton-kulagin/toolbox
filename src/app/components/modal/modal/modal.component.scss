@@ -1,5 +1,17 @@
-@import "~nouislider/distribute/nouislider.min.css";
+.modal-dialog {
+    top:50% !important;
+}
 :host ::ng-deep {
+    .modal-dialog {
+        top:50% !important;
+    }
+        
+        .modal-dialog  {
+            background: red;
+        }
+        .modal-content {
+            background: green;
+        }
     .modal-content * {
         color: #000;
     }
@@ -12,27 +24,51 @@
     .modal-header * {
         color: #000;
     }
+    .modal-body {
+        overflow: hidden;
+    }
     .example-margin {
         width:100%;
+        position: absolute;
+        top:-34px;
+        left:0;
+        right: 0;
+        padding: 0;
+        .mat-slider-wrapper {
+            left:0;
+            right: 0;
+            .mat-slider-track-fill,.mat-slider-track-background {
+                background: none;
+            }
+        }
+        
     }
     .md-slider-wrapper {
         touch-action: none;
+    }
+    .mat-slider-thumb,.mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+        background: none;
+        border-top-color: red;
+        border-left-color: transparent;
+        border-right-color:transparent;
+        border-width: 15px 10px 0 10px !important;
+        border-radius: 0;
+        &:before {
+            content:'';
+            width:2px;
+            background: red;
+            min-height: 600px;
+            position: absolute;
+            left:50%;
+            transform: translateX(-50%)
+        }
     }
 }
 .imageWrapper {
     width: 100%;
     position: relative;
-    // .imgLeft, .imgRight {
-    //     position: absolute;
-    //     left: 0;
-    //     top: 0;
-    //     right: 0;
-    // }
     .imgLeft, .imgRight {
         width: 100%;
-    }
-    .imgRight {
-        // transform: translateY(-100%);
     }
     .comparer {
         position: absolute;
