@@ -17,7 +17,7 @@ import { CompareComponent } from './components/modal/compare/compare/compare.com
 import { AccordionComponent } from './components/accrodion/report/accordion.component';
 import { AppHeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { ReportListComponent } from './components/report-list/report-list.component';
+import { TestListComponent } from './components/test-list/test-list.component';
 import { MatSliderModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -32,7 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AccordionComponent,
     AppHeaderComponent,
     SidebarComponent,
-    ReportListComponent
+    TestListComponent
   ],
   imports: [
     HttpModule,

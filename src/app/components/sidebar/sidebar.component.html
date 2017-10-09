@@ -1,17 +1,18 @@
 <!-- <div (click)="toogleSideBar()">test</div> -->
 <aside class="sideBar" [ngClass]="{'opened':sideBarOpened}">
-  <ul class="nav navbar-nav sideBarNav">
-    <!-- <li class="nav-item dropdown">
+    <ul class="nav navbar-nav sideBarNav">
+        <!-- <li class="nav-item dropdown">
       <a class="nav-link homeLink" [routerLink]="['']" [routerLinkActive]="['active']">
                 </a>
     </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link reportListLink" [routerLink]="['report-list']" [routerLinkActive]="['active']">
-                  </a>
-    </li> -->
-    <li class="nav-item dropdown">
-      <a class="nav-link reportLink" [routerLink]="['report']" [routerLinkActive]="['active']">
-                  </a>
-    </li>
-  </ul>
+    -->
+        <li class="nav-item dropdown">
+            <a class="nav-link reportLink" [routerLink]="['report']" [routerLinkActive]="['active']">
+            </a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link testListLink" [routerLink]="['test-list']" [routerLinkActive]="['active']">
+            </a>
+        </li>
+    </ul>
 </aside>
