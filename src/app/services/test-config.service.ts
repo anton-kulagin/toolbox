@@ -9,13 +9,15 @@ const API_URL = environment.apiUrl;
 export class TestConfigService {
   testList: Observable<Array<any>>;
   private testListSubj: Subject<Array<any>>;
-
+  viewportsList: Observable<Array<any>>;
+  private viewportsListSubj: Subject<Array<any>>;
   constructor(private http: Http) {
     this.testListSubj = new Subject<Array<any>>();
     this.testList = this.testListSubj.asObservable();
-
+    this.viewportsListSubj = new Subject<Array<any>>();
+    this.viewportsList = this.viewportsListSubj.asObservable();
   }
-  getTestList(): any {
+  getTestList(): Observable<any> {
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Access-Control-Allow-Headers': 'X-Requested-With,content-type'
@@ -24,7 +26,10 @@ export class TestConfigService {
 
     return this.http.get(API_URL + '/config', { headers: headers })
       .map((res: Response) => {
-        this.testListSubj.next(res.json());
+
+        this.testListSubj.next(res.json().scenarios);
+        this.viewportsListSubj.next(res.json().viewports)
+
       })
       .catch((error: any) => {
         return Observable.throw(error.json().error || 'Server error')

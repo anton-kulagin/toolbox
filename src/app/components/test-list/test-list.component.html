@@ -1,5 +1,8 @@
+<div>
+
+</div>
 <div *ngIf="testList">
-    <table class="col-md-12 col-sm-12 col-lg-12 tile table-hover" [hidden]="isSummaryListCollapsed">
+    <table class="col-md-12 col-sm-12 col-lg-12 tile table-hover">
         <thead>
             <tr>
                 <th>
@@ -14,28 +17,20 @@
                 <th>
                     Mismatch
                 </th>
+                <th>
+                    Option
+                </th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let testPair of testPairs">
-                <td class="statusInds">
-                    <div class="indicator failed">
-                        <span class="dot" [ngClass]="{
-                                'green':(testPair.status=='pass'),
-                                'red':(testPair.status!='pass')
-                                }"></span>
-                        <span>
-                                 {{testPair.status=='pass' ? 'passed' : 'failed'}}
-                            </span>
-
-
-                    </div>
-                </td>
-                <td>{{ testPair.pair.label }}</td>
-                <td>{{ testPair.pair.selector }}</td>
-                <td><span class="fileName ">{{ testPair.pair.fileName }}</span></td>
+            <tr *ngFor="let test of testList">
+                <td>{{test.label}}</td>
+                <td>{{ test.selectors.join(',')}}</td>
+                <td>{{ test.url }}</td>
+                <td>{{ test.misMatchThreshold }}</td>
+                <td [routerLink]="['/test-list/',test.label]">-></td>
             </tr>
         </tbody>
 
     </table>
-</div>>
+</div>

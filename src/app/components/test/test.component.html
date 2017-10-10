@@ -1,0 +1,56 @@
+<!--test works! {{id}}
+<table class="col-md-12 col-sm-12 col-lg-12 tile table-hover" *ngIf="testList">
+    <thead>
+        <tr>
+            <th>
+                Label
+            </th>
+            <th>
+                Selector
+            </th>
+            <th>
+                URL
+            </th>
+            <th>
+                Mismatch
+            </th>
+            <th>
+                Option
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let test of testList | currentTest : id">
+            <td>{{test.label}}</td>
+            <td>{{ test.selectors.join(',')}}</td>
+            <td>{{ test.url }}</td>
+            <td>{{ test.misMatchThreshold }}</td>
+            <td (click)="changeOption(test.label)"></td>
+        </tr>
+    </tbody>
+
+</table>-->
+<div *ngIf="test">
+    {{test.label}}
+
+    <div>
+        <label>name: </label>
+        <input [(ngModel)]="test.label" placeholder="label" name="label" />
+    </div>
+    <div>
+        <label>url: </label>
+        <input [(ngModel)]="test.url" placeholder="url" name="url" />
+    </div>
+    <div>
+        <label>selectors: </label>
+        <input [(ngModel)]="test.selectors" placeholder="selectors" name="selectors" />
+    </div>
+    <div>
+        <label>misMatchThreshold: </label>
+        <input [(ngModel)]="test.misMatchThreshold" placeholder="misMatchThreshold" name="misMatchThreshold" />
+    </div>
+
+    <!--<input name="first" ngModel required #first="ngModel">
+        <input name="last" ngModel>
+        <button>Submit</button>-->
+</div>
