@@ -9,6 +9,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class NgbdModalComponent {
   private modalRef: any;
   private imgRightWidth: number = 100;
+  private imgRightHeight: number = 100;
   private max = 100;
   private min = 0;
   private step = 1;
@@ -25,6 +26,7 @@ export class NgbdModalComponent {
         _this = this;
       setTimeout(function () {
         _this.imgRightWidth = parent.offsetWidth;
+        _this.imgRightHeight = child.offsetHeight;
       }, 0);
     }
   }

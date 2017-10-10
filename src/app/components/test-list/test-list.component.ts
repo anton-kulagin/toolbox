@@ -6,7 +6,7 @@ import { NgbdModalComponent } from '../modal/modal/modal.component';
 @Component({
   selector: 'app-test-list',
   templateUrl: './test-list.component.html',
-  styleUrls: ['./test-list.component.css']
+  styleUrls: ['./test-list.component.scss']
 })
 export class TestListComponent implements OnInit, AfterViewInit {
 

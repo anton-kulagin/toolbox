@@ -28,7 +28,7 @@
                 <td>{{ test.selectors.join(',')}}</td>
                 <td>{{ test.url }}</td>
                 <td>{{ test.misMatchThreshold }}</td>
-                <td [routerLink]="['/test-list/',test.label]">-></td>
+                <td class="configBtn"><i [routerLink]="['/test-list/',test.label]" class="material-icons">build</i></td>
             </tr>
         </tbody>
 
