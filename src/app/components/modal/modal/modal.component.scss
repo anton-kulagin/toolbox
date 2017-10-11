@@ -1,17 +1,16 @@
 .modal-dialog {
-    top:50% !important;
+    top: 50% !important;
 }
 :host ::ng-deep {
     .modal-dialog {
-        top:50% !important;
+        top: 50% !important;
     }
-        
-        .modal-dialog  {
-            background: red;
-        }
-        .modal-content {
-            background: green;
-        }
+    .modal-dialog {
+        background: red;
+    }
+    .modal-content {
+        background: green;
+    }
     .modal-content * {
         color: #000;
     }
@@ -28,38 +27,37 @@
         overflow: hidden;
     }
     .example-margin {
-        width:100%;
+        width: 100%;
         position: absolute;
-        top:-34px;
-        left:0;
+        top: -34px;
+        left: 0;
         right: 0;
         padding: 0;
         .mat-slider-wrapper {
-            left:0;
+            left: 0;
             right: 0;
-            .mat-slider-track-fill,.mat-slider-track-background {
+            .mat-slider-track-fill, .mat-slider-track-background {
                 background: none;
             }
         }
-        
     }
     .md-slider-wrapper {
         touch-action: none;
     }
-    .mat-slider-thumb,.mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+    .mat-slider-thumb, .mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
         background: none;
         border-top-color: red;
         border-left-color: transparent;
-        border-right-color:transparent;
+        border-right-color: transparent;
         border-width: 15px 10px 0 10px !important;
         border-radius: 0;
         &:before {
-            content:'';
-            width:2px;
+            content: '';
+            width: 2px;
             background: red;
-            min-height: 600px;
+            min-height: 1800px;
             position: absolute;
-            left:50%;
+            left: 50%;
             transform: translateX(-50%)
         }
     }
