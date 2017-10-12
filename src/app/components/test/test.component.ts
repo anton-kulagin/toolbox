@@ -56,20 +56,15 @@ export class TestComponent implements OnInit, AfterViewInit {
       })
     this.testConfigService.testList.subscribe((resp) => {
       this.testList = resp;
-
       this.test = this.currentTestPipe.transform(this.testList, this.id)[0];
-      console.log(this.id);
-      console.log(this.test);
-      debugger;
     });
-    //   .subscribe(hero => this.hero = hero);
-    // this.route.paramMap.switchMap((params: ParamMap) => {
-    //   this.test = this.currentTestPipe.transform(this.testList, params.get('id'));
-    // }).subscribe(hero => this.hero = hero);
   }
 
   goBack(): void {
     this.location.back();
+  }
+  updateChanges() {
+    console.log(this.testList)
   }
 
 }

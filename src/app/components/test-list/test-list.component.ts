@@ -12,6 +12,7 @@ export class TestListComponent implements OnInit, AfterViewInit {
 
   private loading: Boolean = false;
   private testList: any;
+  private testName: any;
   constructor(
     private testConfigService: TestConfigService,
     private ngbdModalComponent: NgbdModalComponent
@@ -42,6 +43,10 @@ export class TestListComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.testConfigService.testList.subscribe((resp) => {
       this.testList = resp;
+    });
+    this.testConfigService.testName.subscribe((resp) => {
+      debugger;
+      this.testName = resp;
     });
   }
 }

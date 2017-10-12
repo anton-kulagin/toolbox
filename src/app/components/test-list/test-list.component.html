@@ -1,5 +1,7 @@
-<div>
-
+<div *ngIf="testName">
+    <header class="reportHeader">
+        <h4>Test name: {{testName}}</h4>
+    </header>
 </div>
 <div *ngIf="testList">
     <table class="col-md-12 col-sm-12 col-lg-12 tile table-hover">
@@ -17,10 +19,10 @@
                 <th>
                     URL
                 </th>
-                <th>
+                <th class="text-center">
                     Mismatch
                 </th>
-                <th>
+                <th class="text-center">
                     Option
                 </th>
             </tr>
@@ -33,7 +35,7 @@
                     <i *ngIf="!!(test.clickSelector || test.hoverSelector )" class="material-icons">done</i>
                 </td>
                 <td><span></span>{{ test.url }}</td>
-                <td>{{ test.misMatchThreshold }}</td>
+                <td class="text-center">{{ test.misMatchThreshold }}</td>
                 <td class="configBtn"><i [routerLink]="['/test-list/',test.label]" class="material-icons">settings</i></td>
             </tr>
         </tbody>
