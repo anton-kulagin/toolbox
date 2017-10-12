@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { NgFor } from '@angular/common';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { MatSliderModule } from '@angular/material';
+import { MatSliderModule,MatInputModule,MatButtonModule,MatIconModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -51,6 +51,9 @@ import { CurrentTestPipe } from './pipes/config/current-test.pipe';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
     FormsModule,
     NgbModule.forRoot()
   ],

@@ -11,13 +11,13 @@ import { CurrentTestPipe } from '../../pipes/config/current-test.pipe'
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
-  styleUrls: ['./test.component.css']
+  styleUrls: ['./test.component.scss']
 })
 export class TestComponent implements OnInit, AfterViewInit {
   private id;
   private testList;
   private test;
-
+  objectKeys = Object.keys;
   private loading: Boolean = false;
   constructor(
     private route: ActivatedRoute,

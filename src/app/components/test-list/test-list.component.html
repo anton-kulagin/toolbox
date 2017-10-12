@@ -12,6 +12,9 @@
                     Selector
                 </th>
                 <th>
+                    Actions
+                </th>
+                <th>
                     URL
                 </th>
                 <th>
@@ -26,9 +29,12 @@
             <tr *ngFor="let test of testList">
                 <td>{{test.label}}</td>
                 <td>{{ test.selectors.join(',')}}</td>
-                <td>{{ test.url }}</td>
+                <td class="actionBtn">
+                    <i *ngIf="!!(test.clickSelector || test.hoverSelector )" class="material-icons">done</i>
+                </td>
+                <td><span></span>{{ test.url }}</td>
                 <td>{{ test.misMatchThreshold }}</td>
-                <td class="configBtn"><i [routerLink]="['/test-list/',test.label]" class="material-icons">build</i></td>
+                <td class="configBtn"><i [routerLink]="['/test-list/',test.label]" class="material-icons">settings</i></td>
             </tr>
         </tbody>
 

@@ -1,0 +1,25 @@
+input {
+    color: #fff;
+}
+.mat-input-element {
+    font-size: 20px;
+}
+:host ::ng-deep {
+    .mat-input-placeholder-wrapper .mat-input-placeholder {
+        font-size: 18px !important;
+        color: #fff !important;
+    }
+    .mat-input-underline {
+        color: #fff;
+    }
+}
+.fields-container {
+    display: flex;
+    flex-direction: column;
+    .full-width {
+        width: 100%;
+    }
+}
+.fields-container>* {
+    width: 100%;
+}
