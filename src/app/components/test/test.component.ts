@@ -64,6 +64,8 @@ export class TestComponent implements OnInit, AfterViewInit {
     this.location.back();
   }
   updateChanges() {
+    debugger;
+    this.testConfigService.updateTest(this.testList);
     console.log(this.testList)
   }
 

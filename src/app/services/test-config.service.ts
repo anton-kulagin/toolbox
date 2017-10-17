@@ -42,16 +42,15 @@ export class TestConfigService {
 
   }
   updateTest(testList) {
-    return this.http.post(API_URL + '/config', testList, this.options)
-      .map((res: Response) => {
+    debugger;
+    return this.http.post(API_URL + '/config', testList)
+      .subscribe((res: Response) => {
 
-        // this.testListSubj.next(res.json().scenarios);
-        // this.testNameSubj.next(res.json().id);
-        // this.viewportsListSubj.next(res.json().viewports)
+        this.testListSubj.next(res.json().scenarios);
+        this.testNameSubj.next(res.json().id);
+        this.viewportsListSubj.next(res.json().viewports)
 
       })
-      .catch((error: any) => {
-        return Observable.throw(error.json().error || 'Server error')
-      });
+
   }
 }
