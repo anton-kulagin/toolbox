@@ -3,6 +3,9 @@ import { TestConfigService } from '../../services/test-config.service';
 
 import { NgbdModalComponent } from '../modal/modal/modal.component';
 
+import { Configuration } from "../../interface/configuration/configuration";
+
+
 @Component({
   selector: 'app-test-list',
   templateUrl: './test-list.component.html',
@@ -11,7 +14,7 @@ import { NgbdModalComponent } from '../modal/modal/modal.component';
 export class TestListComponent implements OnInit, AfterViewInit {
 
   private loading: Boolean = false;
-  private testList: any;
+  private testList: Configuration[];
   private testName: any;
   constructor(
     private testConfigService: TestConfigService,
@@ -48,5 +51,37 @@ export class TestListComponent implements OnInit, AfterViewInit {
       debugger;
       this.testName = resp;
     });
+  }
+
+  removeScenario(id) {
+    this.testList.splice(id, 1);
+    this.testConfigService.updateTest(this.testList);
+   // debugger;
+  }
+
+  addTest = function () {
+    var tests: Configuration = {
+      label: "NewTest" + this.testList.length,
+      url: "",
+      selectors: [""],
+      onBeforeScript: "",
+      cookiePath: "",
+      referenceUrl: "",
+      readyEvent: "",
+      readySelector: "",
+      delay: "",
+      hideSelectors: "",
+      removeSelectors: "",
+      onReadyScript: "",
+      hoverSelector: "",
+      clickSelector: "",
+      postInteractionWait: "",
+      selectorExpansion: "",
+      misMatchThreshold: "",
+      requireSameDimensions: "",
+    }
+    this.testList.push(tests);
+    this.testConfigService.updateTest(this.testList);
+    //console.log(this.testList)
   }
 }

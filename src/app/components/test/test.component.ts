@@ -19,6 +19,9 @@ export class TestComponent implements OnInit, AfterViewInit {
   private test;
   objectKeys = Object.keys;
   private loading: Boolean = false;
+  private requiredList = [
+    'url','label','selectors'
+  ]
   constructor(
     private route: ActivatedRoute,
     private location: Location,
@@ -66,7 +69,18 @@ export class TestComponent implements OnInit, AfterViewInit {
   updateChanges() {
     debugger;
     this.testConfigService.updateTest(this.testList);
+
     console.log(this.testList)
+  }
+  isRequired(field):boolean {
+    return this.requiredList.indexOf(field)>-1;
+  }
+  isDisabled(field,value):boolean{
+    return false;
+    //return field=='label' && !/^NewTest/.test(value)
+  }
+  updateModelVal(event){
+    debugger;
   }
 
 }

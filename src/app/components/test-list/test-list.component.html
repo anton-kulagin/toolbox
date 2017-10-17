@@ -28,7 +28,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let test of testList">
+            <tr *ngFor="let test of testList, let idx=index">
                 <td>{{test.label}}</td>
                 <td>{{ test.selectors.join(',')}}</td>
                 <td class="actionBtn">
@@ -36,9 +36,13 @@
                 </td>
                 <td><span></span>{{ test.url }}</td>
                 <td class="text-center">{{ test.misMatchThreshold }}</td>
-                <td class="configBtn"><i [routerLink]="['/test-list/',test.label]" class="material-icons">settings</i></td>
+                <td class="configBtn">
+                    <i [routerLink]="['/test-list/',test.label]" class="material-icons">settings</i>
+                    <i (click)="removeScenario(idx)" class="material-icons">clear</i>
+                </td>
             </tr>
         </tbody>
 
     </table>
+    <div class="btn" (click)="addTest()">Add Scenarios</div>
 </div>

@@ -42,7 +42,6 @@ export class TestConfigService {
 
   }
   updateTest(testList) {
-    debugger;
     return this.http.post(API_URL + '/config', testList)
       .subscribe((res: Response) => {
 
