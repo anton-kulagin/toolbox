@@ -6,14 +6,18 @@
     }
 }
 .reportHeader {
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     font-size: 12px;
     padding: 5px 10px 5px;
     display: inline-block;
     letter-spacing: 0.5px;
-    color:#fff;
+    color: #fff;
     margin: 10px 0;
 }
 table th, table td {
-    padding:3px 5px;
+    padding: 3px 5px;
+}
+.addScenario {
+    margin-top: 20px;
+    cursor: pointer;
 }

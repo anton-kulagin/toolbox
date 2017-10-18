@@ -56,32 +56,36 @@ export class TestListComponent implements OnInit, AfterViewInit {
   removeScenario(id) {
     this.testList.splice(id, 1);
     this.testConfigService.updateTest(this.testList);
-   // debugger;
+    // debugger;
   }
+
 
   addTest = function () {
     var tests: Configuration = {
       label: "NewTest" + this.testList.length,
       url: "",
-      selectors: [""],
+      selectors: ["document"],
+      misMatchThreshold: "0.1",
       onBeforeScript: "",
       cookiePath: "",
       referenceUrl: "",
       readyEvent: "",
       readySelector: "",
       delay: "",
-      hideSelectors: "",
-      removeSelectors: "",
+      hideSelectors: [],
+      removeSelectors: [],
       onReadyScript: "",
       hoverSelector: "",
       clickSelector: "",
       postInteractionWait: "",
       selectorExpansion: "",
-      misMatchThreshold: "",
       requireSameDimensions: "",
     }
     this.testList.push(tests);
     this.testConfigService.updateTest(this.testList);
     //console.log(this.testList)
+  }
+  downloadSetup(){
+    return this.testConfigService.downloadConfig();
   }
 }

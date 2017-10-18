@@ -52,4 +52,10 @@ export class TestConfigService {
       })
 
   }
+  downloadConfig(){
+    return this.http.get(API_URL + '/download')
+      .subscribe((res: Response) => {
+
+      })
+  }
 }

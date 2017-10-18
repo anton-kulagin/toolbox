@@ -7,8 +7,8 @@ export interface Configuration {
     readyEvent?: string               // Wait until this string has been logged to the console.
     readySelector?: string            // Wait until this selector exists before continuing.
     delay?: string                    // Wait for x millisections
-    hideSelectors?: string            // Array of selectors set to visibility: hidden
-    removeSelectors?: string          // Array of selectors set to display: none
+    hideSelectors?: string[]            // Array of selectors set to visibility: hidden
+    removeSelectors?: string[]          // Array of selectors set to display: none
     onReadyScript?: string            // After the above conditions are met -- use this script to modify UI state prior to screen shots e.g. hovers, clicks etc.
     hoverSelector?: string            // Move the pointer over the specified DOM element prior to screen shot (available with default onReadyScript)
     clickSelector?: string            // Click the specified DOM element prior to screen shot (available with default onReadyScript)
