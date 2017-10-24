@@ -48,7 +48,7 @@ export class TestListComponent implements OnInit, AfterViewInit {
       this.testList = resp;
     });
     this.testConfigService.testName.subscribe((resp) => {
-      debugger;
+      //debugger;
       this.testName = resp;
     });
   }

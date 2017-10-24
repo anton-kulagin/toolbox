@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CurrentTestPipe implements PipeTransform {
 
   transform(items: any[], label): any {
-    debugger;
+    //debugger;
      return label 
             ? items.filter(item => item.label == label)
             : items;

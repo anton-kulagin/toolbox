@@ -1,10 +1,14 @@
 <div class="row" *ngIf="testName">
     <header class="col-md-6 reportHeader">
-        <h4>Test name: {{testName}}</h4>
+        <div class="row">
+            <h4 class="col-md-10 col-sm-12">Test name: {{testName}}</h4>
+            <div class="col-md-2 text-center col-sm-12">
+                <i class="material-icons" (click)="downloadSetup()">get_app</i>
+            </div>
+        </div>
+
     </header>
-    <div class="col-md-6">
-        <i class="material-icons" (click)="downloadSetup()">get_app</i>
-    </div>
+
 </div>
 <div *ngIf="testList">
     <table class="col-md-12 col-sm-12 col-lg-12 tile table-hover">
@@ -16,7 +20,7 @@
                 <th>
                     Selector
                 </th>
-                <th>
+                <th class="text-center">
                     Actions
                 </th>
                 <th>

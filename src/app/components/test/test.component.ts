@@ -67,7 +67,7 @@ export class TestComponent implements OnInit, AfterViewInit {
     this.location.back();
   }
   updateChanges() {
-    debugger;
+    //debugger;
     this.testConfigService.updateTest(this.testList);
 
     console.log(this.testList)
@@ -80,7 +80,7 @@ export class TestComponent implements OnInit, AfterViewInit {
     //return field=='label' && !/^NewTest/.test(value)
   }
   updateModelVal(event){
-    debugger;
+    //debugger;
   }
 
 }

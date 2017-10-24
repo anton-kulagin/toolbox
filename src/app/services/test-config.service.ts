@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { Subject, Observable } from 'rxjs/Rx';
+import { saveAs as importedSaveAs } from "file-saver";
 
 
 const API_URL = environment.apiUrl;
@@ -30,7 +31,6 @@ export class TestConfigService {
   getTestList(): Observable<any> {
     return this.http.get(API_URL + '/config', this.options)
       .map((res: Response) => {
-
         this.testListSubj.next(res.json().scenarios);
         this.testNameSubj.next(res.json().id);
         this.viewportsListSubj.next(res.json().viewports)
@@ -52,10 +52,22 @@ export class TestConfigService {
       })
 
   }
-  downloadConfig(){
-    return this.http.get(API_URL + '/download')
-      .subscribe((res: Response) => {
-
-      })
+  downloadFile(data:Response) {
+    debugger;
+    var blob = new Blob([JSON.stringify(data.json(),null,6)], { type: 'application/json' });
+    importedSaveAs(blob, 'backstop.js');
+  }
+  downloadConfig() {
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Headers': 'X-Requested-With,content-type',
+      'responseType': 'application/json'
+    }); // ... Set content type to JSON
+    let options = new RequestOptions({ headers: headers }); // Create a request option
+    return this.http.get(API_URL + '/download', options)
+      .subscribe(data => this.downloadFile(data)),//console.log(data),
+      error => console.log("Error downloading the file."),
+      () => console.info("OK");
   }
 }
