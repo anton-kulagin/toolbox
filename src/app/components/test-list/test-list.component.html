@@ -46,6 +46,7 @@
                 <td class="configBtn">
                     <i [routerLink]="['/test-list/',test.label]" class="material-icons">settings</i>
                     <i (click)="removeScenario(idx)" class="material-icons">clear</i>
+                    <i class="material-icons" (click)="startTest(test.label)">autorenew</i>
                 </td>
             </tr>
         </tbody>

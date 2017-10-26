@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TestConfigService } from '../../services/test-config.service';
+import { BackstopService } from '../../services/backstop.service';
+import { ReportService } from '../../services/report.service';
 
 import { NgbdModalComponent } from '../modal/modal/modal.component';
 
@@ -18,6 +20,8 @@ export class TestListComponent implements OnInit, AfterViewInit {
   private testName: any;
   constructor(
     private testConfigService: TestConfigService,
+    private backstopService: BackstopService,
+    private reportService: ReportService,
     private ngbdModalComponent: NgbdModalComponent
   ) { }
   ngAfterViewInit() {
@@ -85,7 +89,19 @@ export class TestListComponent implements OnInit, AfterViewInit {
     this.testConfigService.updateTest(this.testList);
     //console.log(this.testList)
   }
-  downloadSetup(){
+  downloadSetup() {
     return this.testConfigService.downloadConfig();
+  }
+  startTest(label) {
+    let filter = label;
+    this.openModal();
+    this.backstopService.run('test', filter)
+      .then(() => {
+        return this.reportService.getReport()
+          .subscribe(() => {
+            this.closeModal();
+            console.info('Refetching data after approving')
+          });
+      })
   }
 }
