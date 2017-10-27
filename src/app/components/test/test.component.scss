@@ -1,0 +1,35 @@
+input {
+    color: #fff;
+}
+.mat-input-element {
+    font-size: 20px;
+}
+:host ::ng-deep {
+    .mat-input-placeholder-wrapper .mat-input-placeholder {
+        font-size: 18px !important;
+        color: #fff !important;
+    }
+    .mat-input-underline {
+        color: #fff;
+    }
+}
+.fields-container {
+    display: flex;
+    flex-direction: column;
+    .full-width {
+        width: 100%;
+    }
+}
+.fields-container>* {
+    width: 100%;
+}
+.reportHeader {
+    background: rgba(0,0,0,0.3);
+    font-size: 12px;
+    padding: 5px 10px 5px;
+    display: inline-block;
+    letter-spacing: 0.5px;
+    color:#fff;
+    margin: 10px 0;
+}
+

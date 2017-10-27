@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class SidebarService {
 
-  private sidebareSource = new BehaviorSubject<boolean>(false);
+  private sidebareSource = new BehaviorSubject<boolean>(true);
   sidebarState = this.sidebareSource.asObservable();
 
   private sideBarOpened: boolean = false;

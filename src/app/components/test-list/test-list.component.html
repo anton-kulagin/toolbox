@@ -1,0 +1,56 @@
+<div class="row" *ngIf="testName">
+    <header class="col-md-6 reportHeader">
+        <div class="row">
+            <h4 class="col-md-10 col-sm-12">Test name: {{testName}}</h4>
+            <div class="col-md-2 text-center col-sm-12">
+                <i class="material-icons" (click)="downloadSetup()">get_app</i>
+            </div>
+        </div>
+
+    </header>
+
+</div>
+<div *ngIf="testList">
+    <table class="col-md-12 col-sm-12 col-lg-12 tile table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Label
+                </th>
+                <th>
+                    Selector
+                </th>
+                <th class="text-center">
+                    Actions
+                </th>
+                <th>
+                    URL
+                </th>
+                <th class="text-center">
+                    Mismatch
+                </th>
+                <th class="text-center">
+                    Option
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let test of testList, let idx=index">
+                <td>{{test.label}}</td>
+                <td>{{ test.selectors.join(',')}}</td>
+                <td class="actionBtn">
+                    <i *ngIf="!!(test.clickSelector || test.hoverSelector )" class="material-icons">done</i>
+                </td>
+                <td><span></span>{{ test.url }}</td>
+                <td class="text-center">{{ test.misMatchThreshold }}</td>
+                <td class="configBtn">
+                    <i [routerLink]="['/test-list/',test.label]" class="material-icons">settings</i>
+                    <i (click)="removeScenario(idx)" class="material-icons">clear</i>
+                    <i class="material-icons" (click)="startTest(test.label)">autorenew</i>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+    <div class="btn addScenario" (click)="addTest()">Add Scenarios</div>
+</div>

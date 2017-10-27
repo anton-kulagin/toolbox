@@ -4,14 +4,17 @@
     </button>
 </div>
 <div class="modal-body">
-    <div *ngIf="data.imgLeft" class="imageWrapper" #imgWrapper>
-        <mat-slider class="example-margin" [max]="max" [min]="min" [step]="step" [thumb-label]="thumbLabel" [tick-interval]="tickInterval" [value]="sliderVal" (input)="sliderChange($event)">
+    <div *ngIf="data.imgLeft" [style.height.px]="imgRightHeight" class="imageWrapper" #imgWrapper>
+        <mat-slider class="example-margin" [max]="max" [min]="min" [step]="step" [thumb-label]="thumbLabel" [tick-interval]="tickInterval"
+            [value]="sliderVal" (input)="sliderChange($event)">
         </mat-slider>
         <div class="comparer">
-            <div class="visible-part" [style.width.%]="visibleWidth" style="width:50%"> <img [src]="data.imgRight" [style.width.px]="imgRightWidth" #imgRight class="imgRight" /></div>
-
+            <div class="visible-part" [style.width.%]="visibleWidth" style="width:50%">
+                <img [src]="data.imgLeft" class="imgLeft" [style.width.px]="imgRightWidth" />
+            </div>
         </div>
-        <img [src]="data.imgLeft" class="imgLeft" />
+        <img [src]="data.imgRight" class="imgRight" #imgRight/>
+
 
     </div>
     <div *ngIf="!data.imgLeft" class="text-center">
