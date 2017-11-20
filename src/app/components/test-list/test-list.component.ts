@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, HostListener, Host } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener, Host, OnDestroy } from '@angular/core';
 import { TestConfigService } from '../../services/test-config.service';
 import { BackstopService } from '../../services/backstop.service';
 import { ReportService } from '../../services/report.service';
@@ -21,29 +21,22 @@ export enum KEY_CODE {
   templateUrl: './test-list.component.html',
   styleUrls: ['./test-list.component.scss']
 })
-export class TestListComponent implements OnInit, AfterViewInit {
+export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private loading: Boolean = false;
   private testList: Configuration[];
   private testName: any;
+  private subscription: any;
   constructor(
     private testConfigService: TestConfigService,
     private backstopService: BackstopService,
     private reportService: ReportService,
     private ngbdModalComponent: NgbdModalComponent
-  ) { 
-    Observable.fromEvent(document, 'keyup')
-      .map((event)=>{
-       // debugger;
-        return event
-      })
-      .debounceTime(200)
-      .subscribe((event)=>{
-       // debugger;
-        console.log(event);
-        this.keyEvent(event);
-      })
+  ) {}
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
+
   ngAfterViewInit() {
     this.testConfigService.getTestList()
       .do(() => {
@@ -53,8 +46,18 @@ export class TestListComponent implements OnInit, AfterViewInit {
         this.closeModal();
       });
   }
+  @HostListener('window:keydown', ['$event'])
+  preventScrolling1(event) {
+    if (event.keyCode == KEY_CODE.DOWN_ARROW || event.keyCode == KEY_CODE.UP_ARROW) {
+      event.preventDefault();
+      console.log('prevernt');
+      event.returnValue = false;
+      return false;
+    }
 
- // @HostListener('window:keyup', ['$event'])
+  }
+
+
   keyEvent(event) {
     console.log(event);
     if (event.keyCode === KEY_CODE.UP_ARROW) {
@@ -65,41 +68,47 @@ export class TestListComponent implements OnInit, AfterViewInit {
       this.moveDown();
     }
   }
+  scrollToElem() {
+    let el = document.querySelector('.activeTest');
+    el.scrollIntoView({ behavior: "smooth" });
 
+  }
   moveUp(): void {
     let activePos = this.testList.findIndex((el, pos, arr) => {
       return el.active
     });
-    let copyScenario = Object.assign({}, this.testList[activePos]);
-    if (activePos > -1) {
-      this.removeScenario(activePos);
-      this.testList.splice(activePos - 1, 0, copyScenario);
+    let copyScenario = Object.assign({}, this.testList[activePos - 1]);
+    if (activePos > 0 && activePos <= this.testList.length) {
+      this.testList[activePos - 1] = this.testList[activePos];
+      this.testList[activePos] = copyScenario;
       this.updateTest();
+      this.scrollToElem();
     }
+
   }
 
   moveDown(): void {
     let activePos = this.testList.findIndex((el, pos, arr) => {
       return el.active
     });
-    let copyScenario = Object.assign({}, this.testList[activePos]);
-    if (activePos > -1) {
-      this.removeScenario(activePos);
-      this.testList.splice(activePos + 1, 0, copyScenario);
+    let copyScenario = Object.assign({}, this.testList[activePos + 1]);
+    if (activePos >= 0 && activePos < this.testList.length - 1) {
+      this.testList[activePos + 1] = this.testList[activePos];
+      this.testList[activePos] = copyScenario;
       this.updateTest();
+      this.scrollToElem();
     }
   }
 
   toggleState(id): void {
-    //debugger;
     let currStatet = this.testList[id].active;
     this.deactivate();
     this.testList[id].active = !currStatet;
   }
-  
 
-  deactivate(){
-    this.testList.forEach((el,pos,arr)=>{
+
+  deactivate() {
+    this.testList.forEach((el, pos, arr) => {
       delete el.active;
     })
   }
@@ -119,11 +128,18 @@ export class TestListComponent implements OnInit, AfterViewInit {
 
   }
   ngOnInit() {
+    this.subscription = Observable.fromEvent(document, 'keyup')
+      .map((event) => {
+        return event
+      })
+      .debounceTime(200)
+      .subscribe((event) => {
+        this.keyEvent(event);
+      })
     this.testConfigService.testList.subscribe((resp) => {
       this.testList = resp;
     });
     this.testConfigService.testName.subscribe((resp) => {
-      //debugger;
       this.testName = resp;
     });
   }
@@ -131,7 +147,6 @@ export class TestListComponent implements OnInit, AfterViewInit {
   removeScenario(id) {
     this.testList.splice(id, 1);
     this.updateTest();
-    // debugger;
   }
 
   updateTest() {
@@ -167,7 +182,6 @@ export class TestListComponent implements OnInit, AfterViewInit {
     }
     this.testList.push(tests);
     this.updateTest();
-    //console.log(this.testList)
   }
   downloadSetup() {
     return this.testConfigService.downloadConfig();
