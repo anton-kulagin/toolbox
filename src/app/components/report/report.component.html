@@ -1,21 +1,20 @@
 <div class="container" *ngIf="this.report">
-    <header class="reportHeader">
-        <h4>{{this.report.testSuite}} Report</h4>
-        <h6 class="statContainer">
-            <span class="stat">Passed <span class='label label-success'>
-                {{this.testPairs | passedTests}}</span>&nbsp;&nbsp; Failed
-            <span class='label label-danger'>{{this.testPairs.length-(this.testPairs | passedTests)}}</span>
+    <header class="title bg-basic row">
+        <h4 class="col-md-12">{{this.report.testSuite}} Report</h4>
+        <h6 class="statContainer col-md-12">
+            <span class="stat">Passed
+                <span class='label label-success'>
+                    {{this.testPairs | passedTests}}</span>&nbsp;&nbsp; Failed
+                <span class='label label-danger'>{{this.testPairs.length-(this.testPairs | passedTests)}}</span>
             </span>
         </h6>
     </header>
-
     <div class="summaryControls" (click)="toogleSummary()">
         <button class="btn btn-default summaryListButton" type="button" class="btn btn-default">
-            <span *ngIf="!isSummaryListCollapsed">Collapse Summary</span>
-            <span *ngIf="isSummaryListCollapsed">Expand Summary</span>
+            <span>{{isSummaryListCollapsed?"Expand Summary":"Collapse Summary"}}</span>
         </button>
     </div>
-    <div class="summaryBlock">
+    <div class="summaryBlock row">
         <table class="col-md-12 col-sm-12 col-lg-12 tile table-hover" [hidden]="isSummaryListCollapsed">
             <thead>
                 <tr>
@@ -42,7 +41,7 @@
                                 'red':(testPair.status!='pass')
                                 }"></span>
                             <span>
-                                 {{testPair.status=='pass' ? 'passed' : 'failed'}}
+                                {{testPair.status=='pass' ? 'passed' : 'failed'}}
                             </span>
 
 
@@ -50,7 +49,9 @@
                     </td>
                     <td>{{ testPair.pair.label }}</td>
                     <td>{{ testPair.pair.selector }}</td>
-                    <td><span class="fileName ">{{ testPair.pair.fileName }}</span></td>
+                    <td>
+                        <span class="fileName ">{{ testPair.pair.fileName }}</span>
+                    </td>
                 </tr>
             </tbody>
 
@@ -60,15 +61,15 @@
 
     <div class='filterGroup form-group row'>
         <label for="statusFilter" class="control-label statusFilter col-sm-6 col-md-6">Status filter
-      <select id="statusFilter" class="form-control" #selectedFilter (change)="onChangeFilter(selectedFilter.value)">
-          <option value="all">all</option>
-          <option value="pass">Pass</option>
-          <option value="fail">Failed</option>
-      </select>
-    </label>
+            <select id="statusFilter" class="form-control" #selectedFilter (change)="onChangeFilter(selectedFilter.value)">
+                <option value="all">all</option>
+                <option value="pass">Pass</option>
+                <option value="fail">Failed</option>
+            </select>
+        </label>
         <label for="showPairStats" class="control-label showPairStats col-sm-6 col-md-6 text-right">Show stats
-        <input id="showPairStats" type="checkbox"  class="showPairStats" (change)="toogleStatVisibility()" />
-    </label>
+            <input id="showPairStats" type="checkbox" class="showPairStats" (change)="toogleStatVisibility()" />
+        </label>
         <div class="btn btn-info col-sm-12 col-md-3" (click)="backstopRun('test')">Start Test</div>
         <div class="btn btn-info col-sm-12 col-md-3" (click)="backstopRun('approve')">Approve all</div>
     </div>

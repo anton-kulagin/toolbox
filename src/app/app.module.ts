@@ -23,10 +23,12 @@ import { SidebarService } from './services/sidebar.service';
 import { BackstopService } from './services/backstop.service';
 import { TestConfigService } from './services/test-config.service';
 import { LinkGeneratorService } from './services/link-generator.service';
+import { ErrorListService } from './services/error-list.service';
 
 import { PassedTestsPipe } from './pipes/report/passed-tests.pipe';
 import { TestComponent } from './components/test/test.component';
 import { CurrentTestPipe } from './pipes/config/current-test.pipe';
+import { ErrorListComponent } from './components/error-list/error-list.component';
 
 
 
@@ -43,7 +45,8 @@ import { CurrentTestPipe } from './pipes/config/current-test.pipe';
     SidebarComponent,
     TestListComponent,
     TestComponent,
-    CurrentTestPipe
+    CurrentTestPipe,
+    ErrorListComponent
   ],
   imports: [
     HttpModule,
@@ -70,6 +73,7 @@ import { CurrentTestPipe } from './pipes/config/current-test.pipe';
     NgbActiveModal,
     SidebarService,
     TestConfigService,
+    ErrorListService,
     CurrentTestPipe
   ],
   bootstrap: [AppComponent]
