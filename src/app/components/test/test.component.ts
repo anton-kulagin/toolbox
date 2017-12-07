@@ -16,7 +16,7 @@ import { CurrentTestPipe } from '../../pipes/config/current-test.pipe'
 export class TestComponent implements OnInit, AfterViewInit {
   private id;
   private testList;
-  private test;
+  public test;
   objectKeys = Object.keys;
   private loading: Boolean = false;
   private requiredList = [

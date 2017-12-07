@@ -19,7 +19,9 @@ table {
         border-color: rgba(255,255,255,0.05) !important;
     }
 }
-
+.container {
+    padding: 20px;
+}
 .modal-dialog {
     top:50% !important;
 }
@@ -151,15 +153,13 @@ table {
         display: none !important;
     }
 }
-.reportHeader {
-    background: rgba(0,0,0,0.3);
+.title {
     font-size: 12px;
     text-transform: uppercase;
     padding: 5px 10px 5px;
-    display: inline-block;
     letter-spacing: 0.5px;
     color:#fff;
-    margin: 10px 0;
+    margin-bottom: 20px;
 }
 
 .modalCenter {

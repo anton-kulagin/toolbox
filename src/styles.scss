@@ -15,6 +15,11 @@ body * {
 .modal-dialog {
     top: 50% !important;
     transform: translateY(-50%) !important;
+    max-height: 100%;
+}
+
+.bg-basic {
+    background: rgba(0, 0, 0, 0.3);
 }
 
 /* Header */

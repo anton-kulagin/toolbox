@@ -7,7 +7,8 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./modal.component.scss']
 })
 export class NgbdModalComponent {
-  private modalRef: any;
+  public modalRef: any;
+  public data: any;
   private imgRightWidth: number = 100;
   private imgRightHeight: number = 100;
   private max = 100;
@@ -40,6 +41,7 @@ export class NgbdModalComponent {
       size: 'lg',
       windowClass: 'modalCenter'
     });
+    this.data = data;
     this.modalRef.componentInstance.data = data;
   }
   close(msg: string = ""): void {

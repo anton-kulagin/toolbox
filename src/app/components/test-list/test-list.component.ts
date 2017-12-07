@@ -1,29 +1,42 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener, Host, OnDestroy } from '@angular/core';
 import { TestConfigService } from '../../services/test-config.service';
 import { BackstopService } from '../../services/backstop.service';
 import { ReportService } from '../../services/report.service';
+import { Observable } from 'rxjs/Rx';
 
 import { NgbdModalComponent } from '../modal/modal/modal.component';
 
 import { Configuration } from "../../interface/configuration/configuration";
 
 
+export enum KEY_CODE {
+  RIGHT_ARROW = 39,
+  LEFT_ARROW = 37,
+  UP_ARROW = 38,
+  DOWN_ARROW = 40
+}
+
 @Component({
   selector: 'app-test-list',
   templateUrl: './test-list.component.html',
   styleUrls: ['./test-list.component.scss']
 })
-export class TestListComponent implements OnInit, AfterViewInit {
+export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private loading: Boolean = false;
-  private testList: Configuration[];
-  private testName: any;
+  public testList: Configuration[];
+  public testName: any;
+  private subscription: any;
   constructor(
     private testConfigService: TestConfigService,
     private backstopService: BackstopService,
     private reportService: ReportService,
     private ngbdModalComponent: NgbdModalComponent
-  ) { }
+  ) {}
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   ngAfterViewInit() {
     this.testConfigService.getTestList()
       .do(() => {
@@ -33,6 +46,73 @@ export class TestListComponent implements OnInit, AfterViewInit {
         this.closeModal();
       });
   }
+  @HostListener('window:keydown', ['$event'])
+  preventScrolling1(event) {
+    if (event.keyCode == KEY_CODE.DOWN_ARROW || event.keyCode == KEY_CODE.UP_ARROW) {
+      event.preventDefault();
+      console.log('prevernt');
+      event.returnValue = false;
+      return false;
+    }
+
+  }
+
+
+  keyEvent(event) {
+    console.log(event);
+    if (event.keyCode === KEY_CODE.UP_ARROW) {
+      this.moveUp();
+    }
+
+    if (event.keyCode === KEY_CODE.DOWN_ARROW) {
+      this.moveDown();
+    }
+  }
+  scrollToElem() {
+    let el = document.querySelector('.activeTest');
+    el.scrollIntoView({ behavior: "smooth" });
+
+  }
+  moveUp(): void {
+    let activePos = this.testList.findIndex((el, pos, arr) => {
+      return el.active
+    });
+    let copyScenario = Object.assign({}, this.testList[activePos - 1]);
+    if (activePos > 0 && activePos <= this.testList.length) {
+      this.testList[activePos - 1] = this.testList[activePos];
+      this.testList[activePos] = copyScenario;
+      this.updateTest();
+      this.scrollToElem();
+    }
+
+  }
+
+  moveDown(): void {
+    let activePos = this.testList.findIndex((el, pos, arr) => {
+      return el.active
+    });
+    let copyScenario = Object.assign({}, this.testList[activePos + 1]);
+    if (activePos >= 0 && activePos < this.testList.length - 1) {
+      this.testList[activePos + 1] = this.testList[activePos];
+      this.testList[activePos] = copyScenario;
+      this.updateTest();
+      this.scrollToElem();
+    }
+  }
+
+  toggleState(id): void {
+    let currStatet = this.testList[id].active;
+    this.deactivate();
+    this.testList[id].active = !currStatet;
+  }
+
+
+  deactivate() {
+    this.testList.forEach((el, pos, arr) => {
+      delete el.active;
+    })
+  }
+
   openModal(): void {
     if (!this.loading) {
       this.loading = true;
@@ -48,21 +128,36 @@ export class TestListComponent implements OnInit, AfterViewInit {
 
   }
   ngOnInit() {
+    this.subscription = Observable.fromEvent(document, 'keyup')
+      .map((event) => {
+        return event
+      })
+      .debounceTime(200)
+      .subscribe((event) => {
+        this.keyEvent(event);
+      })
     this.testConfigService.testList.subscribe((resp) => {
       this.testList = resp;
     });
     this.testConfigService.testName.subscribe((resp) => {
-      //debugger;
       this.testName = resp;
     });
   }
 
   removeScenario(id) {
     this.testList.splice(id, 1);
-    this.testConfigService.updateTest(this.testList);
-    // debugger;
+    this.updateTest();
   }
 
+  updateTest() {
+    this.testConfigService.updateTest(this.testList);
+  }
+  copyContent(id) {
+    let copyScenario = Object.assign({}, this.testList[id])
+    copyScenario.label += '-copy';
+    this.testList.push(copyScenario);
+    this.updateTest();
+  }
 
   addTest = function () {
     var tests: Configuration = {
@@ -70,7 +165,7 @@ export class TestListComponent implements OnInit, AfterViewInit {
       url: "",
       selectors: ["document"],
       misMatchThreshold: "0.1",
-      onBeforeScript: "",
+      onBeforeScript: "chromy/onBefore.js",
       cookiePath: "",
       referenceUrl: "",
       readyEvent: "",
@@ -78,7 +173,7 @@ export class TestListComponent implements OnInit, AfterViewInit {
       delay: "",
       hideSelectors: [],
       removeSelectors: [],
-      onReadyScript: "",
+      onReadyScript: "chromy/onReady.js",
       hoverSelector: "",
       clickSelector: "",
       postInteractionWait: "",
@@ -86,8 +181,7 @@ export class TestListComponent implements OnInit, AfterViewInit {
       requireSameDimensions: "",
     }
     this.testList.push(tests);
-    this.testConfigService.updateTest(this.testList);
-    //console.log(this.testList)
+    this.updateTest();
   }
   downloadSetup() {
     return this.testConfigService.downloadConfig();

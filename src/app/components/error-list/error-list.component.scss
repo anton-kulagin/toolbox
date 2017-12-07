@@ -1,0 +1,50 @@
+.container {
+    padding: 20px;
+    table {
+        th,
+        td {
+            padding: 3px 5px;
+        }
+    }
+    table {
+        thead {
+            th {
+                text-align: center;
+            }
+        }
+    }
+}
+
+.title {
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    display: inline-block;
+    letter-spacing: 0.5px;
+    color: #fff;
+    margin: 10px 0;
+}
+
+.status-wrapper {
+    margin-bottom: 20px;
+    .status-flag {
+        margin: 10px 5px;
+        display: inline-block;
+        width: auto;
+        font-size: 14px;
+        height: auto;
+        color: #000;
+        padding: 3px;
+        margin-left: 5px;
+        option {
+            color: #000;
+        }
+    }
+}
+
+.action-wrapper {
+    i {
+        font-size: 16px;
+        cursor: pointer;
+    }
+}

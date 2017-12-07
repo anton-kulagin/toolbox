@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class SidebarService {
-
-  private sidebareSource = new BehaviorSubject<boolean>(true);
+  private sideBarClosed: boolean = true;
+  private sidebareSource = new BehaviorSubject<boolean>(this.sideBarClosed);
   sidebarState = this.sidebareSource.asObservable();
 
-  private sideBarOpened: boolean = false;
   constructor() { }
   public toogleSideBar(): void {
-    this.sideBarOpened = !this.sideBarOpened;
-    this.sidebareSource.next(this.sideBarOpened);
+    this.sideBarClosed = !this.sideBarClosed;
+    this.sidebareSource.next(this.sideBarClosed);
   }
 }
