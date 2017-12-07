@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "http-server": "http-server ./dist -p 3001"
   },
   "private": true,
   "dependencies": {
@@ -32,7 +33,8 @@
     "ng2-nouislider": "^1.7.0",
     "nouislider": "^10.1.0",
     "rxjs": "^5.4.2",
-    "zone.js": "^0.8.14"
+    "zone.js": "^0.8.14",
+    "http-server": "^0.10.0"
   },
   "devDependencies": {
     "@angular/cli": "1.4.1",

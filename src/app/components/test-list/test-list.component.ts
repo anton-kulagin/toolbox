@@ -24,8 +24,8 @@ export enum KEY_CODE {
 export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private loading: Boolean = false;
-  private testList: Configuration[];
-  private testName: any;
+  public testList: Configuration[];
+  public testName: any;
   private subscription: any;
   constructor(
     private testConfigService: TestConfigService,

@@ -5,7 +5,7 @@ import { NgbdModalComponent } from '../modal/modal/modal.component';
 import { LinkGeneratorService } from '../../services/link-generator.service';
 import { BackstopService } from '../../services/backstop.service';
 import 'rxjs/add/operator/do';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { Report } from "../../interface/report/report";
 import { TestPair } from "../../interface/report/test-pair";
 
@@ -17,7 +17,7 @@ import { TestPair } from "../../interface/report/test-pair";
 
 
 export class ReportComponent implements OnInit {
-  private report: Report;
+  public report: Report;
   private testPairs: Array<TestPair>;
   private filteredTestPairs: Array<TestPair>;
   private filter: string = 'all';
