@@ -3,7 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { saveAs as importedSaveAs } from "file-saver";
 import { Observable } from 'rxjs/Observable';
-import { Subject} from 'rxjs/Subject';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/catch';
 
 
@@ -54,9 +54,9 @@ export class TestConfigService {
       })
 
   }
-  downloadFile(data:Response) {
+  downloadFile(data: Response) {
     debugger;
-    var blob = new Blob([JSON.stringify(data.json(),null,6)], { type: 'application/json' });
+    var blob = new Blob([JSON.stringify(data.json(), null, 6)], { type: 'application/json' });
     importedSaveAs(blob, 'backstop.js');
   }
   downloadConfig() {

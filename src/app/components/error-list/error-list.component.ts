@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ErrorListService } from '../../services/error-list.service';
-import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Rx';
+import { ErrorListService } from '@serv/error-list.service';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-error-list',

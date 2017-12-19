@@ -1,11 +1,13 @@
 import { Component, OnInit, AfterViewInit, HostListener, Host, OnDestroy } from '@angular/core';
-import { TestConfigService } from '../../services/test-config.service';
-import { BackstopService } from '../../services/backstop.service';
-import { ReportService } from '../../services/report.service';
+import { TestConfigService } from '@serv/test-config.service';
+import { BackstopService } from '@serv/backstop.service';
+import { ReportService } from '@serv/report.service';
 import { Observable } from 'rxjs/Rx';
 
 import { NgbdModalComponent } from '../modal/modal/modal.component';
 
+
+import { TestProcessState } from '@serv/test-process-state.service';
 import { Configuration } from "../../interface/configuration/configuration";
 
 
@@ -14,7 +16,7 @@ export enum KEY_CODE {
   LEFT_ARROW = 37,
   UP_ARROW = 38,
   DOWN_ARROW = 40
-}
+};
 
 @Component({
   selector: 'app-test-list',
@@ -22,18 +24,23 @@ export enum KEY_CODE {
   styleUrls: ['./test-list.component.scss']
 })
 export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
+  [x: string]: any;
 
   private loading: Boolean = false;
   public testList: Configuration[];
   public testName: any;
   private subscription: any;
+  private requestState: any;
+  public isTestsRunning: boolean;
   constructor(
     private testConfigService: TestConfigService,
     private backstopService: BackstopService,
     private reportService: ReportService,
+    private testProcessState: TestProcessState,
     private ngbdModalComponent: NgbdModalComponent
-  ) {}
+  ) { }
   ngOnDestroy() {
+    this.subscription.unsubscribe();
     this.subscription.unsubscribe();
   }
 
@@ -136,12 +143,18 @@ export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((event) => {
         this.keyEvent(event);
       })
+    this.isTestsRunning = this.testProcessState.runnningStateSubj.getValue();
     this.testConfigService.testList.subscribe((resp) => {
       this.testList = resp;
     });
     this.testConfigService.testName.subscribe((resp) => {
       this.testName = resp;
     });
+    this.testProcessState.runnningStateSubj.subscribe((arg) => {
+      this.isTestsRunning = arg
+    });
+
+
   }
 
   removeScenario(id) {
@@ -186,9 +199,16 @@ export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
   downloadSetup() {
     return this.testConfigService.downloadConfig();
   }
+  isTableAreaReady() {
+    return this.testList && typeof (this.isTestsRunning) != 'undefined';
+  }
   startTest(label) {
     let filter = label;
+    if (this.isTestsRunning) {
+      return;
+    }
     this.openModal();
+    this.isTestsRunning = true;
     this.backstopService.run('test', filter)
       .then(() => {
         return this.reportService.getReport()

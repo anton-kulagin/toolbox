@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: "error-list", component: ErrorListComponent },
   { path: "test-list", component: TestListComponent },
   { path: "test-list/:id", component: TestComponent },
-  { path: "report", component: ReportComponent }
+  { path: "report", component: ReportComponent },
+  { path: '**', redirectTo: "report" }
 
 ];
 @NgModule({

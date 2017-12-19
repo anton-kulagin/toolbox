@@ -9,6 +9,8 @@ import { Observable } from 'rxjs/Observable';
 import { Report } from "../../interface/report/report";
 import { TestPair } from "../../interface/report/test-pair";
 
+import { TestProcessState } from '../../services/test-process-state.service';
+
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -24,12 +26,14 @@ export class ReportComponent implements OnInit {
   private isSummaryListCollapsed: Boolean = true;
   private loading: Boolean = false;
   private API_URL = environment.apiUrl;
+  public isTestsRunning: boolean;
   statVisibility: Boolean = false;
   constructor(
     private reportService: ReportService,
     private ngbdModalComponent: NgbdModalComponent,
     private linkGeneratorService: LinkGeneratorService,
-    private backstopService: BackstopService
+    private backstopService: BackstopService,
+    private testProcessState: TestProcessState
   ) { }
 
   getReport(preventClose: boolean = false): void {
@@ -83,6 +87,9 @@ export class ReportComponent implements OnInit {
   backstopRun(command: string) {
     let servicePromise = this.backstopService.run(command),
       preventClose = command == 'approve' ? true : false;
+    if (this.isTestsRunning) {
+      return;
+    }
     this.openModal();
     servicePromise
       .then((data) => {
@@ -116,6 +123,10 @@ export class ReportComponent implements OnInit {
     this.reportService.testPair.subscribe((resp) => {
       this.testPairs = resp;
       this.filteredTestPairs = this.getTestPairsByFilter();
+    });
+    this.isTestsRunning = this.testProcessState.runnningStateSubj.getValue();
+    this.testProcessState.runnningStateSubj.subscribe((arg) => {
+      this.isTestsRunning = arg
     });
   }
 

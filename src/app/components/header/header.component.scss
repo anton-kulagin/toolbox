@@ -4,6 +4,10 @@ body, a, input {
 }
 .navbar {
     padding: 0;
+    display: inline-flex;
+    position: absolute;
+    left:0;
+    top:0;
 }
 .menu-toggle {
     cursor: pointer;
@@ -23,5 +27,13 @@ body, a, input {
     span {
         color:#fff;
         font-size:16px;
+    }
+}
+.header-info {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    .material-icons {
+        margin-right: 15px;
     }
 }

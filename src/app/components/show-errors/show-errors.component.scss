@@ -1,0 +1,14 @@
+.error-list {
+    position: absolute;
+    left:15px;
+    top:33px;
+    z-index: 999;
+    list-style: none;
+    padding-left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    li {
+        color:#fff;
+        font-size: 14px;
+        padding: 3px 10px;
+    }
+}

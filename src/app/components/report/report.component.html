@@ -70,8 +70,8 @@
         <label for="showPairStats" class="control-label showPairStats col-sm-6 col-md-6 text-right">Show stats
             <input id="showPairStats" type="checkbox" class="showPairStats" (change)="toogleStatVisibility()" />
         </label>
-        <div class="btn btn-info col-sm-12 col-md-3" (click)="backstopRun('test')">Start Test</div>
-        <div class="btn btn-info col-sm-12 col-md-3" (click)="backstopRun('approve')">Approve all</div>
+        <div class="btn btn-info col-sm-12 col-md-3" [ngClass]="isTestsRunning?'disabled':''" (click)="backstopRun('test')">Start Test</div>
+        <div class="btn btn-info col-sm-12 col-md-3" [ngClass]="isTestsRunning?'disabled':''"(click)="backstopRun('approve')">Approve all</div>
     </div>
     <ngbd-accordion-basic [filter]="filter" [statVisibility]='statVisibility' [filteredTestPairs]='filteredTestPairs'></ngbd-accordion-basic>
 </div>

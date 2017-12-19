@@ -5,7 +5,7 @@
             <i class="material-icons" (click)="downloadSetup()">get_app</i>
         </div>
     </header>
-    <div *ngIf="testList" class="row">
+    <div *ngIf="isTableAreaReady()" class="row">
         <table class="col-md-12 col-sm-12 col-lg-12 tile table-hover">
             <thead>
                 <tr>
@@ -45,7 +45,7 @@
                         <i [routerLink]="['/test-list/',test.label]" class="material-icons">settings</i>
                         <i (click)="removeScenario(idx)" class="material-icons">clear</i>
                         <i class="material-icons" (click)="copyContent(idx)">content_copy</i>
-                        <i class="material-icons" (click)="startTest(test.label)">autorenew</i>
+                        <i [ngClass]="isTestsRunning?'disabled':''"  class="material-icons" (click)="startTest(test.label)">autorenew</i>
                     </td>
                 </tr>
             </tbody>

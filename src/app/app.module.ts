@@ -1,12 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgForOf } from '@angular/common';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { MatSliderModule,MatInputModule,MatButtonModule,MatIconModule } from '@angular/material';
+import { MatSliderModule, MatInputModule, MatButtonModule, MatIconModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -24,11 +27,13 @@ import { BackstopService } from './services/backstop.service';
 import { TestConfigService } from './services/test-config.service';
 import { LinkGeneratorService } from './services/link-generator.service';
 import { ErrorListService } from './services/error-list.service';
+import { TestProcessState } from './services/test-process-state.service';
 
 import { PassedTestsPipe } from './pipes/report/passed-tests.pipe';
 import { TestComponent } from './components/test/test.component';
 import { CurrentTestPipe } from './pipes/config/current-test.pipe';
 import { ErrorListComponent } from './components/error-list/error-list.component';
+import { ShowErrorsComponent } from './components/show-errors/show-errors.component';
 
 
 
@@ -46,7 +51,8 @@ import { ErrorListComponent } from './components/error-list/error-list.component
     TestListComponent,
     TestComponent,
     CurrentTestPipe,
-    ErrorListComponent
+    ErrorListComponent,
+    ShowErrorsComponent
   ],
   imports: [
     HttpModule,
@@ -58,6 +64,8 @@ import { ErrorListComponent } from './components/error-list/error-list.component
     MatButtonModule,
     MatIconModule,
     FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     NgbModule.forRoot()
   ],
   entryComponents: [
@@ -65,6 +73,7 @@ import { ErrorListComponent } from './components/error-list/error-list.component
     NgbdModalComponent
   ],
   providers: [
+    HttpClient,
     ReportService,
     NgbdModalComponent,
     AccordionComponent,
@@ -74,6 +83,7 @@ import { ErrorListComponent } from './components/error-list/error-list.component
     SidebarService,
     TestConfigService,
     ErrorListService,
+    TestProcessState,
     CurrentTestPipe
   ],
   bootstrap: [AppComponent]

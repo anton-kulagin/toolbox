@@ -1,28 +1,26 @@
-<div *ngIf="test" class="test-components">
-    <div class="row">
-        <div class="reportHeader col-md-6">
+<div *ngIf="test" class="test-components container">
+    <div class="row bg-basic title">
+        <div class="col-md-12">
             <h4>Scenario: {{test.label}}</h4>
-
-        </div>
-        <div class="col-md-6 text-right">
-            <button mat-button class="btn " [routerLink]="['/test-list/',test.label]" (click)="updateChanges() ">Save</button>
         </div>
     </div>
 
+    <div class="fields-container row">
+        <form [formGroup]="myForm" novalidate>
+            <div *ngFor="let field of objectKeys(this.test)">
+                <div [hidden]="isHiddenOption(field)" class="row">
+                    <label class="col-md-3">{{field}}</label>
+                    <div class="field-wrapper col-md-9">
+                        <input type="text" [ngClass]="myForm['controls'][field].invalid? 'errorField':''" [name]="field" [(ngModel)]="this['test'][field]" [formControlName]="field">
+                        <show-errors [control]="myForm['controls'][field]"></show-errors>
+                    </div>
 
-    <div class="fields-container">
-        <div *ngFor="let field of objectKeys(test)">
-            <!-- <mat-form-field class="full-width" *ngIf="field!='label'"> -->
-            <mat-form-field class="full-width">
-                <input matInput [(ngModel)]="test[field]" [required]="isRequired(field)" [errorStateMatcher]="myErrorStateMatcher" [disabled]="isDisabled(field,test[field])" placeholder="{{field}} " name="{{field}} " />
-                <mat-error>This field is required</mat-error>
-            </mat-form-field>
-        </div>
+                </div>
+            </div>
+        </form>
     </div>
     <div>
-        <!--<button mat-icon-button>
-            <mat-icon aria-label="Example icon-button with a heart icon ">check_circle</mat-icon>
-        </button>-->
-        <button mat-button class="btn " [routerLink]="['/test-list/',test.label]" (click)="updateChanges() ">Save</button>
+        
+        <button mat-button class="btn" [disabled]="myForm.invalid || myForm.pending" [routerLink]="['/test-list/',test.label]" (click)="updateChanges() ">Save</button>
     </div>
 </div>
