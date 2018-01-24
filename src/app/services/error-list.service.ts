@@ -21,7 +21,7 @@ export class ErrorListService {
   private options = new RequestOptions({ headers: this.headers }); // Create a request option
 
   getErrorList(): Observable<any> {
-    return this.http.get(API_URL + '/errors', this.options)
+    return this.http.get(API_URL + '/api/errors', this.options)
       .map((res: Response) => {
         this.errorListSubj.next(res.json());
       })
@@ -31,7 +31,7 @@ export class ErrorListService {
 
   }
   updateErroList(errorList) {
-    return this.http.post(API_URL + '/errors', errorList)
+    return this.http.post(API_URL + '/api/errors', errorList)
       .subscribe((res: Response) => {
         this.errorListSubj.next(res.json());
       })

@@ -18,7 +18,7 @@ export class TestProcessState {
   }
 
   getState(): Observable<any> {
-    return this.httpClient.get(API_URL + '/process-state')
+    return this.httpClient.get(API_URL + '/api/process-state')
       .map((res:any) => {
         this.runnningStateSubj.next(res.state);
       })

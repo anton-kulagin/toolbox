@@ -31,7 +31,7 @@ export class TestConfigService {
   private options = new RequestOptions({ headers: this.headers }); // Create a request option
 
   getTestList(): Observable<any> {
-    return this.http.get(API_URL + '/config', this.options)
+    return this.http.get(API_URL + '/api/config', this.options)
       .map((res: Response) => {
         this.testListSubj.next(res.json().scenarios);
         this.testNameSubj.next(res.json().id);
@@ -44,7 +44,7 @@ export class TestConfigService {
 
   }
   updateTest(testList) {
-    return this.http.post(API_URL + '/config', testList)
+    return this.http.post(API_URL + '/api/config', testList)
       .subscribe((res: Response) => {
 
         this.testListSubj.next(res.json().scenarios);
@@ -67,7 +67,7 @@ export class TestConfigService {
       'responseType': 'application/json'
     }); // ... Set content type to JSON
     let options = new RequestOptions({ headers: headers }); // Create a request option
-    return this.http.get(API_URL + '/download', options)
+    return this.http.get(API_URL + '/api/download', options)
       .subscribe(data => this.downloadFile(data)),//console.log(data),
       error => console.log("Error downloading the file."),
       () => console.info("OK");

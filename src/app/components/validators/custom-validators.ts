@@ -5,7 +5,7 @@ export class CustomValidators {
 
   static label(c: FormControl): ValidationErrors {
     const label = c.value;
-    const isValid = !/[\s-!$%^&*()+|~=`{}\[\]:";'<>?,.\/]/.test(label);
+    const isValid = !/[\s!$%^&*()+|~=`{}\[\]:";'<>?,.\/]/.test(label);
     const message = {
       'labels': {
         'message': 'label should contain only letters, numbers and underscors.'

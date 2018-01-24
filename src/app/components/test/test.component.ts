@@ -25,7 +25,7 @@ export class TestComponent implements OnInit, AfterViewInit {
     'url', 'label', 'selectors'
   ];
   private hiddenList = [
-    'onReadyScript', 'onBeforeScript'
+    'onBeforeScript'
   ];
   public myFormControl:{};
   public myForm: FormGroup;
