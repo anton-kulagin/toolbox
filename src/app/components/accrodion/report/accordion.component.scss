@@ -30,6 +30,19 @@
     .card-body, .asset-heading {
         color: black;
     }
+    .card-header {
+        position: relative;
+        padding: 13px 40px 13px 10px;
+        .settings {
+            position:absolute;
+            right: 5px;
+            font-size: 21px;
+            top:50%;
+            transform: translate(-50%,-50%);
+        }
+
+    }
+
 }
 body {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;

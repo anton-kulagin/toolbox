@@ -1,26 +1,29 @@
 <div class="modal-header" *ngIf="data.imgLeft">
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Modal closed')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-<div class="modal-body">
-    <div *ngIf="data.imgLeft" [style.height.px]="imgRightHeight" class="imageWrapper" #imgWrapper>
-        <mat-slider class="example-margin" [max]="max" [min]="min" [step]="step" [thumb-label]="thumbLabel" [tick-interval]="tickInterval"
-            [value]="sliderVal" (input)="sliderChange($event)">
-        </mat-slider>
-        <div class="comparer">
-            <div class="visible-part" [style.width.%]="visibleWidth" style="width:50%">
-                <img [src]="data.imgLeft" class="imgLeft" [style.width.px]="imgRightWidth" />
-            </div>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Modal closed')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div *ngIf="data.imgReference">
+                <img width="100%" height="auto" [src]="data.imgReference" class="imgReference" #imgReference/>
         </div>
-        <img [src]="data.imgRight" class="imgRight" #imgRight/>
-
-
+        <div *ngIf="data.imgLeft && !data.imgReference" [style.height.px]="imgRightHeight" class="imageWrapper" #imgWrapper>
+            <mat-slider class="example-margin" [max]="max" [min]="min" [step]="step" 
+                [value]="sliderVal" (input)="sliderChange($event)">
+            </mat-slider>
+            <div class="comparer">
+                <div class="visible-part" [style.width.%]="visibleWidth" style="width:50%">
+                    <img [src]="data.imgLeft" class="imgLeft" [style.width.px]="imgRightWidth" />
+                </div>
+            </div>
+            <img [src]="data.imgRight" class="imgRight" #imgRight/>
+    
+    
+        </div>
+        <div *ngIf="!data.imgLeft" class="text-center">
+            <span class="sr-only">Loading...<br/>
+              Please wait.
+            </span>
+            <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        </div>
     </div>
-    <div *ngIf="!data.imgLeft" class="text-center">
-        <span class="sr-only">Loading...<br/>
-          Please wait.
-        </span>
-        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-    </div>
-</div>

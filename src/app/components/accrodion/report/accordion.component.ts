@@ -52,11 +52,14 @@ export class AccordionComponent implements OnInit {
       this.ngbdModalComponent.open(NgbdModalComponent);
     }
   }
-  openModal(imgLeft?, imgRight?): void {
+  openModal(imgLeft?, imgRight?,imgReference?): void {
     if (imgLeft && imgRight) {
       let data = {
         imgLeft: this.getReportImageURL(imgLeft),
         imgRight: this.getReportImageURL(imgRight)
+      }
+      if(imgReference){
+        data['imgReference'] = this.getReportImageURL(imgReference)
       }
       this.openModalCompare(data);
     } else {

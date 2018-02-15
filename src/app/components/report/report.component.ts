@@ -126,6 +126,9 @@ export class ReportComponent implements OnInit {
     });
     this.isTestsRunning = this.testProcessState.runnningStateSubj.getValue();
     this.testProcessState.runnningStateSubj.subscribe((arg) => {
+      if (this.isTestsRunning != arg) {
+        this.getReport();
+      }
       this.isTestsRunning = arg
     });
   }

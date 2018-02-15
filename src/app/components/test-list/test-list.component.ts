@@ -196,7 +196,7 @@ export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.testList.push(tests);
     this.updateTest();
   }
-  downloadSetup() {
+  downloadSetup():any {
     return this.testConfigService.downloadConfig();
   }
   isTableAreaReady() {

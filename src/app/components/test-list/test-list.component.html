@@ -39,7 +39,7 @@
                         <i *ngIf="!!(test.clickSelector || test.hoverSelector )" class="material-icons">done</i>
                     </td>
                     <td>
-                        <span></span>{{ test.url }}</td>
+                        <a [href]="test.url" target="_blank">{{ test.url }}</a></td>
                     <td class="text-center">{{ test.misMatchThreshold }}</td>
                     <td class="configBtn">
                         <i [routerLink]="['/test-list/',test.label]" class="material-icons">settings</i>
