@@ -31,7 +31,8 @@
             </thead>
             <tbody>
                 <tr *ngFor="let test of testList, let idx=index" (click)="toggleState(idx)" [ngClass]="{
-                                        'activeTest':(test.active)
+                                        'activeTest':(test.active),
+                                        'disabledTest':(!test.status)
                                         }">
                     <td>{{test.label}}</td>
                     <td>{{ test.selectors.join(',')}}</td>

@@ -8,6 +8,7 @@ import { TestConfigService } from '@serv/test-config.service';
 import { NgbdModalComponent } from '../modal/modal/modal.component';
 import { CurrentTestPipe } from '../../pipes/config/current-test.pipe'
 import { CustomValidators } from '../validators/custom-validators';
+import { ViewChild } from '@angular/core/src/metadata/di';
 
 
 @Component({
@@ -112,6 +113,11 @@ export class TestComponent implements OnInit, AfterViewInit {
       }
     }
     return invalid;
+  }
+
+  public changeState(event) {
+    this.test.status = event.target.checked
+
   }
 
   public isHiddenOption(key){

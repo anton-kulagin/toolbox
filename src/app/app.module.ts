@@ -34,6 +34,7 @@ import { TestComponent } from './components/test/test.component';
 import { CurrentTestPipe } from './pipes/config/current-test.pipe';
 import { ErrorListComponent } from './components/error-list/error-list.component';
 import { ShowErrorsComponent } from './components/show-errors/show-errors.component';
+import { ViewPortComponent } from './components/view-port/view-port.component';
 
 
 
@@ -52,7 +53,8 @@ import { ShowErrorsComponent } from './components/show-errors/show-errors.compon
     TestComponent,
     CurrentTestPipe,
     ErrorListComponent,
-    ShowErrorsComponent
+    ShowErrorsComponent,
+    ViewPortComponent
   ],
   imports: [
     HttpModule,

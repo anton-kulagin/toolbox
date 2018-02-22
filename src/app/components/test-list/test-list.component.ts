@@ -192,6 +192,7 @@ export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
       postInteractionWait: "",
       selectorExpansion: "",
       requireSameDimensions: "",
+      active:true
     }
     this.testList.push(tests);
     this.updateTest();

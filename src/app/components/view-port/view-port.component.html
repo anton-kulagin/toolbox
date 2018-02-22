@@ -1,0 +1,37 @@
+<div class="container" *ngIf="viewPorts">
+    <header class="row title bg-basic">
+        <h4 class="col-md-10 col-sm-12">List of viewports</h4>
+    </header>
+    <div class="row">
+        <table class="col-md-12 col-sm-12 col-lg-12 tile table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        Name
+                    </th>
+                    <th class="text-center">
+                        Width
+                    </th>
+                    <th class="text-center">
+                        Height
+                    </th>
+                    <th class="text-center">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let viewPort of viewPorts, let idx=index">
+                    <td class="text-center">{{viewPort.label}}</td>
+                    <td class="text-center">{{ viewPort.width}}</td>
+                    <td class="text-center">{{ viewPort.height}}</td>
+                    <td class="configBtn">
+                        Will be done soon
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+        <!-- <div class="btn addViewPort" (click)="addViewPort()">Add Scenarios</div> -->
+    </div>
+</div>

@@ -60,7 +60,10 @@ input {
     outline: none;
     font-family: Arial, serif;
 }
-
+.statusCheckbox {
+    float:left;
+    width:13px !important;
+}
 h1 {
     font-size: 20px;
 } // form, [ngForm], ngForm, [ng-reflect-form], [ngModelGroup], [formGroupName], [formArrayName] {
