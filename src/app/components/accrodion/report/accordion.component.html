@@ -3,7 +3,7 @@
         <ng-template ngbPanelTitle>
             <span>
                 {{ testPair.pair.label || testPair.pair.error }}({{ testPair.pair.selector }}) - {{ testPair.pair.fileName }}
-                <a [routerLink]="['/test-list/',testPair.pair.label]" class="material-icons settings">settings</a>
+                <a [routerLink]="['/test-list/',testPair.pair.label]" matTooltip="Set up test configurtation"  class="material-icons settings">settings</a>
             </span>
 
         </ng-template>
@@ -13,8 +13,10 @@
                 <div class="asset-heading">TEST</div>
                 <div *ngIf="testPair.status!='pass'" class="asset-heading ">DIFF</div>
                 <div *ngIf="statVisibility" class="asset-heading ">REPORT</div>
-                <div *ngIf="testPair.status=='fail'" [hidden]="isTestsRunning" class="btn-restart  fa fa-refresh" (click)="refreshTest(testPair)"></div>
-                <div *ngIf="testPair.status=='fail'" [hidden]="isTestsRunning" class="btn-approve  fa fa-check-circle" (click)="approveTestPair(testPair)"></div>
+                <div *ngIf="testPair.status=='fail'" [hidden]="isTestsRunning" class="btn-restart  fa fa-refresh"
+                 (click)="refreshTest(testPair)" matTooltip="Restart test"></div>
+                <div *ngIf="testPair.status=='fail'" [hidden]="isTestsRunning" class="btn-approve  fa fa-check-circle" 
+                (click)="approveTestPair(testPair)" matTooltip="Approve test" ></div>
 
             </div>
             <div class="flex-container">

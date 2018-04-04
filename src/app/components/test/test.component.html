@@ -15,7 +15,10 @@
                                 <input type="checkbox" class="statusCheckbox" (change)="changeState($event)"
                                  [attr.checked]="this['test'][field]==true? '' : null">
                         </div>
-                        <div *ngIf="field!='status'">
+                        <div *ngIf="field=='comment'">
+                                <textarea rows="2" [name]="field"  [(ngModel)]="this['test'][field]" [formControlName]="field"></textarea>
+                        </div>
+                        <div *ngIf="field!='status' && field!='comment'">
                             <input type="text" [ngClass]="myForm['controls'][field].invalid? 'errorField':''" [name]="field" [(ngModel)]="this['test'][field]"
                                 [formControlName]="field">
                             <show-errors [control]="myForm['controls'][field]"></show-errors>

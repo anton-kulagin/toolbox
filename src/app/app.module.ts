@@ -4,7 +4,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgForOf } from '@angular/common';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { MatSliderModule, MatInputModule, MatButtonModule, MatIconModule } from '@angular/material';
+import { MatSliderModule, MatInputModule, MatButtonModule, MatIconModule, MatTooltipModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -65,6 +65,7 @@ import { ViewPortComponent } from './components/view-port/view-port.component';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    MatTooltipModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,

@@ -17,5 +17,6 @@ export interface Configuration {
     selectorExpansion?: any        // See Targeting elements in the next section for more info...
     misMatchThreshold?: any       // Around of change before a test is marked failed
     requireSameDimensions?: any   // If set to true -- any change in selector size will trigger a test failure.
+    comment?: String   // Comment to test
     active?:boolean          //mark for changing position in list of items
 }

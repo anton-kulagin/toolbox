@@ -30,6 +30,15 @@ export class TestConfigService {
   }); // ... Set content type to JSON
   private options = new RequestOptions({ headers: this.headers }); // Create a request option
 
+  preSaveTestListFix(testList):any {
+    testList.forEach(element => {
+      element.delay = parseFloat(element.delay);
+      element.hideSelectors = element.hideSelectors.split?  element.hideSelectors.split(',') : element.hideSelectors;
+      element.removeSelectors = element.removeSelectors.split?  element.removeSelectors.split(',') : element.removeSelectors;
+    });
+    return testList;
+  }
+  
   getTestList(): Observable<any> {
     return this.http.get(API_URL + '/api/config', this.options)
       .map((res: Response) => {
@@ -44,7 +53,7 @@ export class TestConfigService {
 
   }
   updateTest(testList) {
-    return this.http.post(API_URL + '/api/config', testList)
+    return this.http.post(API_URL + '/api/config', this.preSaveTestListFix(testList))
       .subscribe((res: Response) => {
 
         this.testListSubj.next(res.json().scenarios);

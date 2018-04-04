@@ -47,3 +47,28 @@ table td {
 .activeTest {
     background: rgba(0, 0, 0, 0.2);
 }
+.filterGroup {
+    background: rgba(0,0,0,0.35);
+    padding: 7px;
+    align-items: center;
+    justify-content: space-around;
+    .disabled {
+        opacity: 0.1;
+        &:hover {
+            opacity: 0.1 !important;
+        }
+    }
+}
+.filterGroup input {
+    font-size: 14px;
+    padding:3px;
+    margin: 10px 5px;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    color: #000;
+}
+.filterGroup .btn-info {
+    margin-top:5px;
+    margin-bottom:5px;
+}
