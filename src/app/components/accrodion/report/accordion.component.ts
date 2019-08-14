@@ -36,6 +36,12 @@ export class AccordionComponent implements OnInit {
     });
   }
 
+  urlClick(event){
+    event.preventDefault();
+    event.stopPropagation();
+    window.open(event.target.getAttribute('href'), '_blank')
+  }
+
   errorHandler(event) {
     event.target.src = this.BASE64_PNG_STUB;
   }

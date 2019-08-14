@@ -22,7 +22,7 @@ export class ReportComponent implements OnInit {
   public report: Report;
   private testPairs: Array<TestPair>;
   private filteredTestPairs: Array<TestPair>;
-  private filter: string = 'all';
+  private filter: string = this.getLastFilter();
   private isSummaryListCollapsed: Boolean = true;
   private loading: Boolean = false;
   private API_URL = environment.apiUrl;
@@ -35,7 +35,25 @@ export class ReportComponent implements OnInit {
     private backstopService: BackstopService,
     private testProcessState: TestProcessState
   ) { }
-
+  setLocalStorageObjectItem(key, value) {
+    if (value === undefined) {
+      localStorage.removeItem(key);
+    } else {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+  }
+  
+  getLocalStorageObjectItem(key) {
+    var json = localStorage.getItem(key);
+    if (json === undefined) {
+      return undefined;
+    }
+    return JSON.parse(json);
+  }
+  getLastFilter():string {
+    let storedValue = this.getLocalStorageObjectItem("selectedFilter")
+    return storedValue? storedValue:"all"
+  }
   getReport(preventClose: boolean = false): void {
     this.reportService
       .getReport()
@@ -60,7 +78,10 @@ export class ReportComponent implements OnInit {
     return this.getTestPairs(this.filter);
   }
 
+
+
   onChangeFilter(selectedFilter: string): void {
+    this.setLocalStorageObjectItem("selectedFilter",selectedFilter)
     this.filter = selectedFilter;
     this.filteredTestPairs = this.getTestPairsByFilter()
   }
@@ -117,9 +138,16 @@ export class ReportComponent implements OnInit {
     });
   }
 
+  convertDate(date:string):string{
+    let dateObj = new Date(date);
+    return `${dateObj.getDate()}/${dateObj.getMonth()+1}/${dateObj.getFullYear()} ${dateObj.getHours()}:${dateObj.getMinutes()}`;
+  }
+
   ngOnInit() {
     this.getReport();
-    this.reportService.report.subscribe((resp) => { this.report = resp; });
+    this.reportService.report.subscribe((resp) => { 
+      this.report = resp; 
+    });
     this.reportService.testPair.subscribe((resp) => {
       this.testPairs = resp;
       this.filteredTestPairs = this.getTestPairsByFilter();

@@ -1,13 +1,19 @@
 <div class="container" *ngIf="this.report">
     <header class="title bg-basic row">
-        <h4 class="col-md-12">{{this.report.testSuite}} Report</h4>
-        <h6 class="statContainer col-md-12">
+        <h4 class="col-md-6">{{this.report.testSuite}} Report</h4>
+        <div class="col-md-6 text-right testDates" >
+            <span *ngIf="this.report.partialTest">Last test run: {{this.convertDate(this.report.partialTest)}}</span>
+        </div>
+        <h6 class="statContainer col-md-6">
             <span class="stat">Passed
                 <span class='label label-success'>
                     {{this.testPairs | passedTests}}</span>&nbsp;&nbsp; Failed
                 <span class='label label-danger'>{{this.testPairs.length-(this.testPairs | passedTests)}}</span>
             </span>
         </h6>
+        <div class="col-md-6 text-right testDates">
+            <span *ngIf="this.report.allTestsDate">Last test list run : {{this.convertDate(this.report.partialTest)}}</span>
+        </div>
     </header>
     <div class="summaryControls" (click)="toogleSummary()">
         <button class="btn btn-default summaryListButton" type="button" class="btn btn-default">
@@ -62,9 +68,9 @@
     <div class='filterGroup form-group row'>
         <label for="statusFilter" class="control-label statusFilter col-sm-6 col-md-6">Status filter
             <select id="statusFilter" class="form-control" #selectedFilter (change)="onChangeFilter(selectedFilter.value)">
-                <option value="all">all</option>
-                <option value="pass">Pass</option>
-                <option value="fail">Failed</option>
+                <option value="all"  [selected]="this.filter==='all'">all</option>
+                <option value="pass"  [selected]="this.filter==='pass'">Pass</option>
+                <option value="fail"  [selected]="this.filter==='fail'">Failed</option>
             </select>
         </label>
         <label for="showPairStats" class="control-label showPairStats col-sm-6 col-md-6 text-right">Show stats

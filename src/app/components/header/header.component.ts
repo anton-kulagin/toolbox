@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SidebarService } from '../../services/sidebar.service';
 import { TestProcessState } from '../../services/test-process-state.service';
 import { IntervalObservable } from "rxjs/observable/IntervalObservable";
+import { ReportService } from '../../services/report.service';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +24,8 @@ export class AppHeaderComponent implements OnInit {
 
   constructor(
     private sidebarService: SidebarService,
-    private testProcessState: TestProcessState
+    private testProcessState: TestProcessState,
+    private reportService: ReportService
   ) {
 
   }

@@ -2,7 +2,7 @@
     <ngb-panel *ngFor="let testPair of filteredTestPairs; let i = index" id="static-{{i}}" [type]="testPair.status=='pass' ? 'success' : 'warning'">
         <ng-template ngbPanelTitle>
             <span>
-                {{ testPair.pair.label || testPair.pair.error }}({{ testPair.pair.selector }}) - {{ testPair.pair.fileName }}
+                {{ testPair.pair.label || testPair.pair.error }}({{ testPair.pair.selector }}) - {{ testPair.pair.fileName }} <a href="{{testPair.pair.url}}" target="_blank" (click)="urlClick($event)" matTooltip="Go to test page"  class="material-icons link">link</a>
                 <a [routerLink]="['/test-list/',testPair.pair.label]" matTooltip="Set up test configurtation"  class="material-icons settings">settings</a>
             </span>
 
