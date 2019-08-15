@@ -22,6 +22,8 @@ export class TestComponent implements OnInit, AfterViewInit {
   public test;
   objectKeys = Object.keys;
   private loading: Boolean = false;
+  
+  private subscription: any[]=[];
   private requiredList = [
     'url', 'label', 'selectors'
   ];
@@ -48,28 +50,28 @@ export class TestComponent implements OnInit, AfterViewInit {
     this.ngbdModalComponent.close('End');
   }
   ngAfterViewInit() {
-    this.testConfigService.getTestList()
+    this.subscription.push(this.testConfigService.getTestList()
       .do(() => {
         this.openModal();
       })
       .subscribe((resp) => {
         this.closeModal();
 
-      });
+      }));
   }
   getCurrentTest() {
   }
   ngOnInit() {
-    this.route.paramMap
+    this.subscription.push(this.route.paramMap
       .subscribe((params: ParamMap) => {
         this.id = params.get('id');
-      })
-    this.testConfigService.testList.subscribe((resp) => {
+      }));
+    this.subscription.push(this.testConfigService.testList.subscribe((resp) => {
       this.testList = resp;
       this.test = this.currentTestPipe.transform(this.testList, this.id)[0];
       this.myFormControl = this.formGroupObj();
       this.myForm = new FormGroup(this.myFormControl)
-    });
+    }));
 
   }
 
@@ -122,6 +124,11 @@ export class TestComponent implements OnInit, AfterViewInit {
 
   public isHiddenOption(key){
     return this.hiddenList.indexOf(key)>-1
+  }
+  ngOnDestroy() {
+    this.subscription.forEach(subscription => {
+      subscription.unsubscribe();
+    });
   }
 
 }

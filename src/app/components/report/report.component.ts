@@ -27,7 +27,8 @@ export class ReportComponent implements OnInit {
   private loading: Boolean = false;
   private API_URL = environment.apiUrl;
   public isTestsRunning: boolean;
-  statVisibility: Boolean = false;
+  public subscription: any[]=[];
+  private statVisibility:boolean = false;
   constructor(
     private reportService: ReportService,
     private ngbdModalComponent: NgbdModalComponent,
@@ -55,7 +56,7 @@ export class ReportComponent implements OnInit {
     return storedValue? storedValue:"all"
   }
   getReport(preventClose: boolean = false): void {
-    this.reportService
+    this.subscription.push(this.reportService
       .getReport()
       .do(() => {
         this.openModal();
@@ -65,7 +66,7 @@ export class ReportComponent implements OnInit {
           this.closeModal();
         }
 
-      })
+      }));
   }
 
   receiveMessage($event) {
@@ -145,21 +146,25 @@ export class ReportComponent implements OnInit {
 
   ngOnInit() {
     this.getReport();
-    this.reportService.report.subscribe((resp) => { 
+    this.subscription.push(this.reportService.report.subscribe((resp) => { 
       this.report = resp; 
-    });
-    this.reportService.testPair.subscribe((resp) => {
+    }));
+    this.subscription.push(this.reportService.testPair.subscribe((resp) => {
       this.testPairs = resp;
       this.filteredTestPairs = this.getTestPairsByFilter();
-    });
+    }));
     this.isTestsRunning = this.testProcessState.runnningStateSubj.getValue();
-    this.testProcessState.runnningStateSubj.subscribe((arg) => {
+    this.subscription.push(this.testProcessState.runnningStateSubj.subscribe((arg) => {
       if (this.isTestsRunning != arg) {
         this.getReport();
       }
       this.isTestsRunning = arg
+    }));
+  }
+  ngOnDestroy() {
+    this.subscription.forEach(subscription => {
+      subscription.unsubscribe();
     });
   }
-
 
 }

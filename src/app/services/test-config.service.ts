@@ -52,6 +52,19 @@ export class TestConfigService {
       });
 
   }
+  getTest(testLabel): Observable<any> {
+    return this.http.get(API_URL + '/api/config/'+testLabel, this.options)
+      .map((res: Response) => {
+        this.testListSubj.next(res.json().scenarios);
+        this.testNameSubj.next(res.json().id);
+        this.viewportsListSubj.next(res.json().viewports)
+
+      })
+      .catch((error: any) => {
+        return Observable.throw(error.json().error || 'Server error')
+      });
+
+  }
   updateTest(testList) {
     return this.http.post(API_URL + '/api/config', this.preSaveTestListFix(testList))
       .subscribe((res: Response) => {

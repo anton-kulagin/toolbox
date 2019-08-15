@@ -33,7 +33,7 @@ export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
   public testList: Configuration[];
   public testListFiltered: Configuration[];
   public testName: any;
-  private subscription: any;
+  private subscription: any[]=[];
   private requestState: any;
   public isTestsRunning: boolean;
   constructor(
@@ -44,18 +44,25 @@ export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
     private ngbdModalComponent: NgbdModalComponent
   ) { }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
-    this.subscription.unsubscribe();
+      this.subscription.forEach(subscription => {
+        subscription.unsubscribe();
+      });
+    // this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
+    // this.testConfigService.testList.unsubscribe();
+    // this.testConfigService.testName.unsubscribe();
+    // this.testProcessState.runnningStateSubj.unsubscribe();
+
   }
 
   ngAfterViewInit() {
-    this.testConfigService.getTestList()
+    this.subscription.push(this.testConfigService.getTestList()
       .do(() => {
         this.openModal();
       })
       .subscribe((resp) => {
         this.closeModal();
-      });
+      }));
   }
   @HostListener('window:keydown', ['$event'])
   preventScrolling1(event) {
@@ -138,26 +145,26 @@ export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
   ngOnInit() {
-    this.subscription = Observable.fromEvent(document, 'keyup')
+    this.subscription.push(Observable.fromEvent(document, 'keyup')
       .map((event) => {
         return event
       })
       .debounceTime(200)
       .subscribe((event) => {
         this.keyEvent(event);
-      })
+      }))
     this.isTestsRunning = this.testProcessState.runnningStateSubj.getValue();
-    this.testConfigService.testList.subscribe((resp) => {
+    this.subscription.push(this.testConfigService.testList.subscribe((resp) => {
       this.testList = resp;
       //this.testListFiltered = resp;
       this.filterTest();
-    });
-    this.testConfigService.testName.subscribe((resp) => {
+    }));
+    this.subscription.push(this.testConfigService.testName.subscribe((resp) => {
       this.testName = resp;
-    });
-    this.testProcessState.runnningStateSubj.subscribe((arg) => {
+    }));
+    this.subscription.push(this.testProcessState.runnningStateSubj.subscribe((arg) => {
       this.isTestsRunning = arg
-    });
+    }));
 
 
   }

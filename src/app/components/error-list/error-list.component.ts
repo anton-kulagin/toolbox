@@ -14,17 +14,18 @@ export class ErrorListComponent implements OnInit {
   private API_URL = environment.apiUrl;
   public errors;
   private showedError = "active";
+  private subscription: any[]=[];
   constructor(
     private errorListService: ErrorListService
   ) { }
 
   getErrorList() {
-    this.errorListService
+    this.subscription.push(this.errorListService
       .getErrorList()
       .do(() => {
         //this.openModal();
       })
-      .subscribe((resp) => { })
+      .subscribe((resp) => { }))
   }
   removeError(index) {
     this.errors.splice(index, 1)
@@ -48,7 +49,12 @@ export class ErrorListComponent implements OnInit {
   }
   ngOnInit() {
     this.getErrorList();
-    this.errorListService.errorList.subscribe((resp) => { this.errors = resp; });
+    this.subscription.push(this.errorListService.errorList.subscribe((resp) => { this.errors = resp; }));
+  }
+  ngOnDestroy() {
+    this.subscription.forEach(subscription => {
+      subscription.unsubscribe();
+    });
   }
 
 }
