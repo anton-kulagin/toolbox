@@ -32,7 +32,7 @@ export class ReportService {
     }); // ... Set content type to JSON
     let options = new RequestOptions({ headers: headers }); // Create a request option
 
-    return this.http.get(API_URL + '/report', { headers: headers })
+    return this.http.get(API_URL + '/api/report', { headers: headers })
       .map((res: Response) => {
         if (res.status != 200) {
           this.reportSubj.next(

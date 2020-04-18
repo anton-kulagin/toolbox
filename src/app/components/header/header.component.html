@@ -1,3 +1,11 @@
 <nav class="navbar navbar-light">
   <button class="menu-toggle" type="button" (click)="toogleSideBar()"></button>
 </nav>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 header-info">
+      <i class="material-icons">{{isTestsRunning?"warning":"done_all"}}</i>
+      <div>{{isTestsRunning?"Test process already started. Please wait.":"You can run test if it`s needed"}}</div>
+    </div>
+  </div>
+</div>

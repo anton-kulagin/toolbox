@@ -49,8 +49,9 @@
             <td class="text-center"> {{error.date}}</td>
             <td> {{error.errorMsg}}</td>
             <td class="action-wrapper text-center">
-              <i (click)="deactiveError(idx)" class="material-icons">{{error.status ? 'not_interested' : 'settings_backup_restore'}}</i>
-              <i (click)="removeError(idx)" class="material-icons">delete</i>
+              <i (click)="deactiveError(idx)" class="material-icons"
+              matTooltip="Mute Error">{{error.status ? 'not_interested' : 'settings_backup_restore'}}</i>
+              <i (click)="removeError(idx)" class="material-icons" matTooltip="Delete error">delete</i>
             </td>
           </tr>
         </ng-container>

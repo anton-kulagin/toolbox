@@ -9,6 +9,8 @@ import { Observable } from 'rxjs/Observable';
 import { Report } from "../../interface/report/report";
 import { TestPair } from "../../interface/report/test-pair";
 
+import { TestProcessState } from '../../services/test-process-state.service';
+
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -20,20 +22,41 @@ export class ReportComponent implements OnInit {
   public report: Report;
   private testPairs: Array<TestPair>;
   private filteredTestPairs: Array<TestPair>;
-  private filter: string = 'all';
+  private filter: string = this.getLastFilter();
   private isSummaryListCollapsed: Boolean = true;
   private loading: Boolean = false;
   private API_URL = environment.apiUrl;
-  statVisibility: Boolean = false;
+  public isTestsRunning: boolean;
+  public subscription: any[]=[];
+  private statVisibility:boolean = false;
   constructor(
     private reportService: ReportService,
     private ngbdModalComponent: NgbdModalComponent,
     private linkGeneratorService: LinkGeneratorService,
-    private backstopService: BackstopService
+    private backstopService: BackstopService,
+    private testProcessState: TestProcessState
   ) { }
-
+  setLocalStorageObjectItem(key, value) {
+    if (value === undefined) {
+      localStorage.removeItem(key);
+    } else {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+  }
+  
+  getLocalStorageObjectItem(key) {
+    var json = localStorage.getItem(key);
+    if (json === undefined) {
+      return undefined;
+    }
+    return JSON.parse(json);
+  }
+  getLastFilter():string {
+    let storedValue = this.getLocalStorageObjectItem("selectedFilter")
+    return storedValue? storedValue:"all"
+  }
   getReport(preventClose: boolean = false): void {
-    this.reportService
+    this.subscription.push(this.reportService
       .getReport()
       .do(() => {
         this.openModal();
@@ -43,7 +66,7 @@ export class ReportComponent implements OnInit {
           this.closeModal();
         }
 
-      })
+      }));
   }
 
   receiveMessage($event) {
@@ -56,7 +79,10 @@ export class ReportComponent implements OnInit {
     return this.getTestPairs(this.filter);
   }
 
+
+
   onChangeFilter(selectedFilter: string): void {
+    this.setLocalStorageObjectItem("selectedFilter",selectedFilter)
     this.filter = selectedFilter;
     this.filteredTestPairs = this.getTestPairsByFilter()
   }
@@ -83,6 +109,9 @@ export class ReportComponent implements OnInit {
   backstopRun(command: string) {
     let servicePromise = this.backstopService.run(command),
       preventClose = command == 'approve' ? true : false;
+    if (this.isTestsRunning) {
+      return;
+    }
     this.openModal();
     servicePromise
       .then((data) => {
@@ -110,14 +139,32 @@ export class ReportComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.getReport();
-    this.reportService.report.subscribe((resp) => { this.report = resp; });
-    this.reportService.testPair.subscribe((resp) => {
-      this.testPairs = resp;
-      this.filteredTestPairs = this.getTestPairsByFilter();
-    });
+  convertDate(date:string):string{
+    let dateObj = new Date(date);
+    return `${dateObj.getDate()}/${dateObj.getMonth()+1}/${dateObj.getFullYear()} ${dateObj.getHours()}:${dateObj.getMinutes()}`;
   }
 
+  ngOnInit() {
+    this.getReport();
+    this.subscription.push(this.reportService.report.subscribe((resp) => { 
+      this.report = resp; 
+    }));
+    this.subscription.push(this.reportService.testPair.subscribe((resp) => {
+      this.testPairs = resp;
+      this.filteredTestPairs = this.getTestPairsByFilter();
+    }));
+    this.isTestsRunning = this.testProcessState.runnningStateSubj.getValue();
+    this.subscription.push(this.testProcessState.runnningStateSubj.subscribe((arg) => {
+      if (this.isTestsRunning != arg) {
+        this.getReport();
+      }
+      this.isTestsRunning = arg
+    }));
+  }
+  ngOnDestroy() {
+    this.subscription.forEach(subscription => {
+      subscription.unsubscribe();
+    });
+  }
 
 }

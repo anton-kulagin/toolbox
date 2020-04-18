@@ -1,11 +1,14 @@
-import { Component, OnInit, AfterViewInit, HostListener, Host, OnDestroy } from '@angular/core';
-import { TestConfigService } from '../../services/test-config.service';
-import { BackstopService } from '../../services/backstop.service';
-import { ReportService } from '../../services/report.service';
+import { Component, OnInit, AfterViewInit, HostListener, Host, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { TestConfigService } from '@serv/test-config.service';
+import { BackstopService } from '@serv/backstop.service';
+import { ReportService } from '@serv/report.service';
 import { Observable } from 'rxjs/Rx';
+import {MatTooltipModule} from '@angular/material';
 
 import { NgbdModalComponent } from '../modal/modal/modal.component';
 
+
+import { TestProcessState } from '@serv/test-process-state.service';
 import { Configuration } from "../../interface/configuration/configuration";
 
 
@@ -14,7 +17,7 @@ export enum KEY_CODE {
   LEFT_ARROW = 37,
   UP_ARROW = 38,
   DOWN_ARROW = 40
-}
+};
 
 @Component({
   selector: 'app-test-list',
@@ -22,29 +25,44 @@ export enum KEY_CODE {
   styleUrls: ['./test-list.component.scss']
 })
 export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
+  [x: string]: any;
 
+
+  public filterText:String="";
   private loading: Boolean = false;
   public testList: Configuration[];
+  public testListFiltered: Configuration[];
   public testName: any;
-  private subscription: any;
+  private subscription: any[]=[];
+  private requestState: any;
+  public isTestsRunning: boolean;
   constructor(
     private testConfigService: TestConfigService,
     private backstopService: BackstopService,
     private reportService: ReportService,
+    private testProcessState: TestProcessState,
     private ngbdModalComponent: NgbdModalComponent
-  ) {}
+  ) { }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+      this.subscription.forEach(subscription => {
+        subscription.unsubscribe();
+      });
+    // this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
+    // this.testConfigService.testList.unsubscribe();
+    // this.testConfigService.testName.unsubscribe();
+    // this.testProcessState.runnningStateSubj.unsubscribe();
+
   }
 
   ngAfterViewInit() {
-    this.testConfigService.getTestList()
+    this.subscription.push(this.testConfigService.getTestList()
       .do(() => {
         this.openModal();
       })
       .subscribe((resp) => {
         this.closeModal();
-      });
+      }));
   }
   @HostListener('window:keydown', ['$event'])
   preventScrolling1(event) {
@@ -59,7 +77,6 @@ export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   keyEvent(event) {
-    console.log(event);
     if (event.keyCode === KEY_CODE.UP_ARROW) {
       this.moveUp();
     }
@@ -128,24 +145,36 @@ export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
   ngOnInit() {
-    this.subscription = Observable.fromEvent(document, 'keyup')
+    this.subscription.push(Observable.fromEvent(document, 'keyup')
       .map((event) => {
         return event
       })
       .debounceTime(200)
       .subscribe((event) => {
         this.keyEvent(event);
-      })
-    this.testConfigService.testList.subscribe((resp) => {
+      }))
+    this.isTestsRunning = this.testProcessState.runnningStateSubj.getValue();
+    this.subscription.push(this.testConfigService.testList.subscribe((resp) => {
       this.testList = resp;
-    });
-    this.testConfigService.testName.subscribe((resp) => {
+      //this.testListFiltered = resp;
+      this.filterTest();
+    }));
+    this.subscription.push(this.testConfigService.testName.subscribe((resp) => {
       this.testName = resp;
-    });
+    }));
+    this.subscription.push(this.testProcessState.runnningStateSubj.subscribe((arg) => {
+      this.isTestsRunning = arg
+    }));
+
+
   }
 
-  removeScenario(id) {
+  removeScenario(label) {
+    let id = this.testList.findIndex((el)=>{
+      return el.label==label
+    })
     this.testList.splice(id, 1);
+    this.filterTest();
     this.updateTest();
   }
 
@@ -153,7 +182,7 @@ export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.testConfigService.updateTest(this.testList);
   }
   copyContent(id) {
-    let copyScenario = Object.assign({}, this.testList[id])
+    let copyScenario = Object.assign({}, this.testListFiltered[id])
     copyScenario.label += '-copy';
     this.testList.push(copyScenario);
     this.updateTest();
@@ -179,16 +208,25 @@ export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
       postInteractionWait: "",
       selectorExpansion: "",
       requireSameDimensions: "",
+      comment:"",
+      active:true
     }
     this.testList.push(tests);
     this.updateTest();
   }
-  downloadSetup() {
+  downloadSetup():any {
     return this.testConfigService.downloadConfig();
+  }
+  isTableAreaReady() {
+    return this.testListFiltered && typeof (this.isTestsRunning) != 'undefined';
   }
   startTest(label) {
     let filter = label;
+    if (this.isTestsRunning) {
+      return;
+    }
     this.openModal();
+    this.isTestsRunning = true;
     this.backstopService.run('test', filter)
       .then(() => {
         return this.reportService.getReport()
@@ -197,5 +235,12 @@ export class TestListComponent implements OnInit, AfterViewInit, OnDestroy {
             console.info('Refetching data after approving')
           });
       })
+  }
+
+  filterTest() {
+    let _that = this;
+    this.testListFiltered = this.testList.filter((el)=>{
+      return el.label.toLowerCase().indexOf(_that.filterText.toLowerCase())>-1;
+    })
   }
 }

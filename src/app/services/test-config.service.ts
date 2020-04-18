@@ -3,7 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { saveAs as importedSaveAs } from "file-saver";
 import { Observable } from 'rxjs/Observable';
-import { Subject} from 'rxjs/Subject';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/catch';
 
 
@@ -30,8 +30,30 @@ export class TestConfigService {
   }); // ... Set content type to JSON
   private options = new RequestOptions({ headers: this.headers }); // Create a request option
 
+  preSaveTestListFix(testList):any {
+    testList.forEach(element => {
+      element.delay = parseFloat(element.delay);
+      element.hideSelectors = element.hideSelectors.split?  element.hideSelectors.split(',') : element.hideSelectors;
+      element.removeSelectors = element.removeSelectors.split?  element.removeSelectors.split(',') : element.removeSelectors;
+    });
+    return testList;
+  }
+  
   getTestList(): Observable<any> {
-    return this.http.get(API_URL + '/config', this.options)
+    return this.http.get(API_URL + '/api/config', this.options)
+      .map((res: Response) => {
+        this.testListSubj.next(res.json().scenarios);
+        this.testNameSubj.next(res.json().id);
+        this.viewportsListSubj.next(res.json().viewports)
+
+      })
+      .catch((error: any) => {
+        return Observable.throw(error.json().error || 'Server error')
+      });
+
+  }
+  getTest(testLabel): Observable<any> {
+    return this.http.get(API_URL + '/api/config/'+testLabel, this.options)
       .map((res: Response) => {
         this.testListSubj.next(res.json().scenarios);
         this.testNameSubj.next(res.json().id);
@@ -44,7 +66,7 @@ export class TestConfigService {
 
   }
   updateTest(testList) {
-    return this.http.post(API_URL + '/config', testList)
+    return this.http.post(API_URL + '/api/config', this.preSaveTestListFix(testList))
       .subscribe((res: Response) => {
 
         this.testListSubj.next(res.json().scenarios);
@@ -54,9 +76,9 @@ export class TestConfigService {
       })
 
   }
-  downloadFile(data:Response) {
+  downloadFile(data: Response) {
     debugger;
-    var blob = new Blob([JSON.stringify(data.json(),null,6)], { type: 'application/json' });
+    var blob = new Blob([JSON.stringify(data.json(), null, 6)], { type: 'application/json' });
     importedSaveAs(blob, 'backstop.js');
   }
   downloadConfig() {
@@ -67,7 +89,7 @@ export class TestConfigService {
       'responseType': 'application/json'
     }); // ... Set content type to JSON
     let options = new RequestOptions({ headers: headers }); // Create a request option
-    return this.http.get(API_URL + '/download', options)
+    return this.http.get(API_URL + '/api/download', options)
       .subscribe(data => this.downloadFile(data)),//console.log(data),
       error => console.log("Error downloading the file."),
       () => console.info("OK");

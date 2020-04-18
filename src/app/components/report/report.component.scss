@@ -9,6 +9,9 @@ td, th {
 td img {
     width: 100%;
 }
+.testDates {
+    line-height: 27px;
+}
 table {
     width: 100%;
     border-collapse: collapse;
@@ -74,6 +77,12 @@ table {
     padding: 7px;
     align-items: center;
     justify-content: space-around;
+    .disabled {
+        opacity: 0.1;
+        &:hover {
+            opacity: 0.1 !important;
+        }
+    }
 }
 .filterGroup select {
     display: inline-block;

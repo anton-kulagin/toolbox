@@ -1,33 +1,43 @@
 <ngb-accordion [closeOthers]="true" *ngIf="filteredTestPairs">
-    <ngb-panel *ngFor="let testPair of filteredTestPairs; let i = index" id="static-{{i}}" title="{{ testPair.pair.label || testPair.pair.error }}({{ testPair.pair.selector }}) - {{ testPair.pair.fileName }}" [type]="testPair.status=='pass' ? 'success' : 'warning'">
+    <ngb-panel *ngFor="let testPair of filteredTestPairs; let i = index" id="static-{{i}}" [type]="testPair.status=='pass' ? 'success' : 'warning'">
+        <ng-template ngbPanelTitle>
+            <span>
+                {{ testPair.pair.label || testPair.pair.error }}({{ testPair.pair.selector }}) - {{ testPair.pair.fileName }} <a href="{{testPair.pair.url}}"  (click)="urlClick($event,testPair.pair.label)" matTooltip="Go to test page"  class="material-icons link">link</a>
+                <a [routerLink]="['/test-list/',testPair.pair.label]" matTooltip="Set up test configurtation"  class="material-icons settings">settings</a>
+            </span>
+
+        </ng-template>
         <ng-template ngbPanelContent>
             <div class="flex-container small">
                 <div class="asset-heading">REFERENCE</div>
                 <div class="asset-heading">TEST</div>
                 <div *ngIf="testPair.status!='pass'" class="asset-heading ">DIFF</div>
-                <div *ngIf="showPairStats" class="asset-heading ">REPORT</div>
-                <div *ngIf="testPair.status=='fail'" class="btn-restart  fa fa-refresh" (click)="refreshTest(testPair)"></div>
-                <div *ngIf="testPair.status=='fail'" class="btn-approve  fa fa-check-circle" (click)="approveTestPair(testPair)"></div>
+                <div *ngIf="statVisibility" class="asset-heading ">REPORT</div>
+                <div *ngIf="testPair.status=='fail'" [hidden]="isTestsRunning" class="btn-restart  fa fa-refresh"
+                 (click)="refreshTest(testPair)" matTooltip="Restart test"></div>
+                <div *ngIf="testPair.status=='fail'" [hidden]="isTestsRunning" class="btn-approve  fa fa-check-circle" 
+                (click)="approveTestPair(testPair)" matTooltip="Approve test" ></div>
 
             </div>
             <div class="flex-container">
                 <div>
-                    <img [src]="getReportImageURL(testPair.pair.reference)" alt="Reference " (click)="openModal(testPair.pair.reference, testPair.pair.test)" (error)="errorHandler($event)" />
+                    <img [src]="getReportImageURL(testPair.pair.reference)" alt="Reference " (click)="openModal(testPair.pair.reference, testPair.pair.test)"
+                        (error)="errorHandler($event)" />
                 </div>
                 <div>
-                    <img [src]="getReportImageURL(testPair.pair.test)" alt="Test " (click)="openModal(testPair.pair.reference, testPair.pair.test)" (error)="errorHandler($event)" />
+                    <img [src]="getReportImageURL(testPair.pair.test)" alt="Test " (click)="openModal(testPair.pair.reference, testPair.pair.test)"
+                        (error)="errorHandler($event)" />
                 </div>
                 <div *ngIf="testPair.status!='pass'">
-                    <img [src]="getReportImageURL(testPair.pair.diffImage) || 'missingImg.png' " image-name="c " alt="Difference" (error)="errorHandler($event)" />
+                    <img [src]="getReportImageURL(testPair.pair.diffImage) || 'missingImg.png' " (click)="openModal(testPair.pair.reference, testPair.pair.test, testPair.pair.diffImage)"
+                        alt="Difference " (error)="errorHandler($event) " />
                 </div>
-                <div *ngIf="statVisibility ">
-                    <div class="statusInds ">
-                        <span class="dot" [ngClass]="{
-                            'green':(testPair.status=='pass'),
-                            'red':(testPair.status!='pass')
-                            }"></span>
+                <div *ngIf="statVisibility">
+                    <div class="statusInds">
+                        <span class="dot " [ngClass]="{ 'green':(testPair.status=='pass' ), 'red':(testPair.status!='pass'
+                        ) } "></span>
                         <span>
-                             {{testPair.status=='pass' ? 'passed' : 'failed'}}
+                            {{testPair.status=='pass' ? 'passed' : 'failed'}}
                         </span>
                     </div>
                     <div class="reportTxt ">Report: {{ testPair.pair.diff | json}}</div>

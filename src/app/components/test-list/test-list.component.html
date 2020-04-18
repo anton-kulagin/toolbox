@@ -5,7 +5,12 @@
             <i class="material-icons" (click)="downloadSetup()">get_app</i>
         </div>
     </header>
-    <div *ngIf="testList" class="row">
+    <div class='filterGroup form-group row'>
+        <label for="showPairStats" class="col-sm-12 col-md-12">Filter: 
+            <input id="showPairStats" type="text" class="showPairStats form-control" [(ngModel)]="this.filterText" (change)="filterTest()" />
+        </label>
+    </div>
+    <div *ngIf="isTableAreaReady()" class="row">
         <table class="col-md-12 col-sm-12 col-lg-12 tile table-hover">
             <thead>
                 <tr>
@@ -30,8 +35,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let test of testList, let idx=index" (click)="toggleState(idx)" [ngClass]="{
-                                        'activeTest':(test.active)
+                <tr *ngFor="let test of testListFiltered, let idx=index" (click)="toggleState(idx)" [ngClass]="{
+                                        'activeTest':(test.active),
+                                        'disabledTest':(!test.status)
                                         }">
                     <td>{{test.label}}</td>
                     <td>{{ test.selectors.join(',')}}</td>
@@ -39,13 +45,14 @@
                         <i *ngIf="!!(test.clickSelector || test.hoverSelector )" class="material-icons">done</i>
                     </td>
                     <td>
-                        <span></span>{{ test.url }}</td>
+                        <a [href]="test.url" target="_blank">{{ test.url }}</a>
+                    </td>
                     <td class="text-center">{{ test.misMatchThreshold }}</td>
                     <td class="configBtn">
-                        <i [routerLink]="['/test-list/',test.label]" class="material-icons">settings</i>
-                        <i (click)="removeScenario(idx)" class="material-icons">clear</i>
-                        <i class="material-icons" (click)="copyContent(idx)">content_copy</i>
-                        <i class="material-icons" (click)="startTest(test.label)">autorenew</i>
+                        <i matTooltip="Set up test configurtation" [routerLink]="['/test-list/',test.label]" class="material-icons">settings</i>
+                        <i matTooltip="Delete test" (click)="removeScenario(testListFiltered[idx]['label'])" class="material-icons">clear</i>
+                        <i matTooltip="Copy current test" class="material-icons" (click)="copyContent(idx)">content_copy</i>
+                        <i matTooltip="Start test" [ngClass]="isTestsRunning?'disabled':''" class="material-icons" (click)="startTest(test.label)">autorenew</i>
                     </td>
                 </tr>
             </tbody>

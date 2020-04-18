@@ -15,7 +15,7 @@ export class BackstopService {
     let headers = new Headers();
     headers.append('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     return this.http
-      .get(API_URL + `/service?method=${command}&filter=${filter}`, { headers: headers })
+      .get(API_URL + `/api/service?method=${command}&filter=${filter}`, { headers: headers })
       .toPromise()
   }
 }

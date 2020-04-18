@@ -9,19 +9,24 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class NgbdModalComponent {
   public modalRef: any;
   public data: any;
-  private imgRightWidth: number = 100;
-  private imgRightHeight: number = 100;
-  private max = 100;
-  private min = 0;
-  private step = 1;
-  private sliderVal = 50;
-  private visibleWidth = 50;
+  public imgRightWidth: number = 100;
+  public imgRightHeight: number = 100;
+  public max = 100;
+  public min = 0;
+  public step = 1;
+  public sliderVal = 50;
+  public visibleWidth = 50;
   @ViewChild('imgRight') imgRight: ElementRef;;
   @ViewChild('imgWrapper') imgWrapper: ElementRef;;
+  @ViewChild('imgReference') imgReference: ElementRef;;
   constructor(private modalService: NgbModal, public activeModal: NgbActiveModal) { }
 
   ngAfterViewInit() {
-    if (this.imgRight) {
+    if (this.imgReference) {
+      var parent = this.imgWrapper.nativeElement,
+        child = this.imgReference.nativeElement,
+        _this = this;
+    } else if (this.imgRight) {
       var parent = this.imgWrapper.nativeElement,
         child = this.imgRight.nativeElement,
         _this = this;
