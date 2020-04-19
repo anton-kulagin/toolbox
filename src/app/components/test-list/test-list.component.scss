@@ -34,6 +34,14 @@
     }
 }
 
+table {
+    table-layout: fixed;
+    width: 100%;
+    a {
+        word-break: break-all;
+    }
+}
+
 table th,
 table td {
     padding: 3px 5px;
